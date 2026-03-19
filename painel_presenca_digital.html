@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Boas Práticas - Presença Digital | Crédito Real</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cr-laranja: #FF6B00;
+            --cr-preto: #1a1a1a;
+            --cr-cinza: #f5f5f5;
+            --cr-branco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--cr-preto) 0%, #2d2d2d 100%);
+            color: var(--cr-preto);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--cr-preto);
+            color: var(--cr-branco);
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--cr-laranja);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: var(--cr-branco);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            background: var(--cr-cinza);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--cr-laranja) 0%, #ff8533 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cr-branco);
+            font-weight: bold;
+        }
+
+        .progress-info {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--cr-preto);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            background: var(--cr-branco);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-menu h2 {
+            color: var(--cr-preto);
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid var(--cr-laranja);
+            padding-bottom: 10px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .menu-item {
+            background: var(--cr-cinza);
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--cr-laranja);
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: var(--cr-laranja);
+            color: var(--cr-branco);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+        }
+
+        .menu-item.completed::after {
+            content: "✓";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .menu-item.active {
+            background: var(--cr-laranja);
+            color: var(--cr-branco);
+        }
+
+        /* Content Area */
+        .content-area {
+            background: var(--cr-branco);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 500px;
+            margin-bottom: 30px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section h2 {
+            color: var(--cr-preto);
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--cr-laranja);
+            padding-bottom: 10px;
+        }
+
+        .content-section h3 {
+            color: var(--cr-laranja);
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+
+        .content-section h4 {
+            color: var(--cr-preto);
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content-section ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        .content-section li {
+            margin-bottom: 10px;
+        }
+
+        /* Accordion */
+        .accordion {
+            margin: 20px 0;
+        }
+
+        .accordion-item {
+            background: var(--cr-cinza);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: var(--cr-preto);
+            color: var(--cr-branco);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: var(--cr-laranja);
+        }
+
+        .accordion-header::after {
+            content: "▼";
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active::after {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+            padding: 20px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5ed 0%, #ffe8d6 100%);
+            border-left: 5px solid var(--cr-laranja);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box.success {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left-color: #4CAF50;
+        }
+
+        .highlight-box.warning {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left-color: #FF9800;
+        }
+
+        .highlight-box.error {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-left-color: #f44336;
+        }
+
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--cr-laranja);
+            color: var(--cr-branco);
+        }
+
+        .btn-primary:hover {
+            background: #ff8533;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--cr-preto);
+            color: var(--cr-branco);
+        }
+
+        .btn-secondary:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-mark {
+            background: linear-gradient(135deg, #FF6B00 0%, #ff8533 100%);
+            color: var(--cr-branco);
+            padding: 15px 40px;
+            font-size: 1.1em;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .btn-mark:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.5);
+        }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--cr-laranja) 0%, #ff8533 100%);
+            color: var(--cr-branco);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--cr-branco);
+            text-align: center;
+        }
+
+        .stat-card p {
+            font-size: 1em;
+            opacity: 0.95;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: var(--cr-cinza);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 15px;
+            font-size: 1.5em;
+            color: var(--cr-laranja);
+        }
+
+        .checklist li.checked {
+            background: #e8f5e9;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .checklist li.checked::before {
+            content: "✓";
+            color: #4CAF50;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content-area {
+                padding: 20px;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .nav-menu,
+            .btn-container,
+            .progress-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Manual de Boas Práticas - Presença Digital</h1>
+            <p>Imóveis Crédito Real</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+            <div class="progress-info">
+                <span id="progressText">0 de 11 seções concluídas</span>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="nav-menu">
+            <h2>📑 Índice de Navegação</h2>
+            <div class="menu-grid">
+                <div class="menu-item" data-section="intro">Introdução</div>
+                <div class="menu-item" data-section="secao1">1. Presença Digital Hoje</div>
+                <div class="menu-item" data-section="secao2">2. Benefícios Práticos</div>
+                <div class="menu-item" data-section="secao3">3. Redes Sociais</div>
+                <div class="menu-item" data-section="secao4">4. Boas Práticas de Conteúdo</div>
+                <div class="menu-item" data-section="secao5">5. Configuração de Perfil</div>
+                <div class="menu-item" data-section="secao6">6. Erros Comuns</div>
+                <div class="menu-item" data-section="secao7">7. Posicionamento Profissional</div>
+                <div class="menu-item" data-section="secao8">8. Marca Crédito Real</div>
+                <div class="menu-item" data-section="secao9">9. Estratégia</div>
+                <div class="menu-item" data-section="conclusao">Conclusão</div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- INTRODUÇÃO -->
+            <div class="content-section active" id="intro">
+                <h2>Manual de Boas Práticas - Presença Digital</h2>
+                
+                <p>No mercado imobiliário atual, quem não é encontrado, não é escolhido. A presença digital deixou de ser uma opção para se tornar um ativo comercial estratégico, diretamente conectado à geração de oportunidades, previsibilidade de vendas e fortalecimento da marca — tanto do corretor quanto da franquia.</p>
+
+                <p>O cliente imobiliário mudou. Antes mesmo de entrar em contato com qualquer corretor, ele já pesquisou imóveis, comparou preços, analisou bairros e buscou referências online. Dados recentes mostram que 87% dos compradores de imóveis iniciam sua jornada pela internet (NAR, 2024). No Brasil, 86,6% da população tem acesso à internet (We Are Social, 2024). Isso significa que, se o corretor não está presente digitalmente, ele simplesmente não existe para esse cliente.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>87%</h3>
+                        <p>Compradores iniciam pela internet</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>86,6%</h3>
+                        <p>População brasileira com internet</p>
+                    </div>
+                </div>
+
+                <p>Mais do que estar presente, o cliente observa como o corretor se posiciona. Ele avalia comportamento digital, clareza na comunicação, frequência de conteúdo, coerência, postura profissional e sinais de autoridade antes mesmo do primeiro contato. Clientes chegam mais informados, mais exigentes e com menos tolerância para abordagens genéricas ou amadoras.</p>
+
+                <div class="highlight-box">
+                    <p><strong>É importante reforçar:</strong> presença digital não é sobre estar na moda, postar por obrigação ou tentar ser influencer. Presença digital é sobre ser encontrado no momento certo, gerar confiança antes da conversa e criar oportunidades de negócio de forma consistente.</p>
+                </div>
+
+                <h3>Na prática, corretores com presença digital ativa e estratégica colhem resultados claros:</h3>
+                <ul class="checklist">
+                    <li>Pode ter até 3 vezes mais leads mensais, vindos de busca orgânica e indicações</li>
+                    <li>Tende a reduzir a média do ciclo de vendas, pois o cliente já chega conhecendo e confiando no corretor</li>
+                    <li>Tende a aumentar muito as indicações espontâneas, com clientes que compartilham perfis e conteúdos</li>
+                    <li>Aumento significativo na taxa de conversão em atendimentos</li>
+                    <li>Autoridade percebida, com menos objeções e maior disposição para fechar negócio</li>
+                </ul>
+
+                <p>Este manual foi construído para orientar corretores e franqueados da Imóveis Crédito Real a utilizarem a presença digital de forma estratégica, profissional e alinhada ao negócio, transformando redes sociais e canais digitais em ferramentas reais de relacionamento, autoridade e vendas — e não apenas em vitrines de imóveis.</p>
+
+                <div class="highlight-box success">
+                    <p><strong>Presença digital, hoje, é estratégia comercial. Quem entende isso constrói vantagem competitiva. Quem ignora, fica para trás.</strong></p>
+                    <p><em>O corretor com presença digital não precisa "se vender" — o digital já fez isso por ele.</em></p>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-primary" onclick="navigateToSection('secao1')">Começar o Manual →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 1 -->
+            <div class="content-section" id="secao1">
+                <h2>1. PRESENÇA DIGITAL NO MERCADO IMOBILIÁRIO HOJE</h2>
+
+                <h3>Comportamento do cliente imobiliário atual</h3>
+                <p>O cliente de hoje:</p>
+                <ul>
+                    <li>Pesquisa sozinho antes de falar com corretor</li>
+                    <li>Confia em avaliações e comentários online</li>
+                    <li>Busca referências sobre o corretor nas redes sociais</li>
+                    <li>Espera respostas rápidas pelo WhatsApp</li>
+                    <li>Valoriza conteúdo educacional (não apenas anúncios de imóveis)</li>
+                    <li>Quer saber quem é o corretor, não apenas o que ele vende</li>
+                </ul>
+
+                <h3>Jornada do cliente e o papel do corretor no digital</h3>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>FASE 1 - DESCOBERTA</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Cliente pesquisa bairros, preços, tipos de imóveis</strong></p>
+                            <p><strong>Papel do corretor:</strong> Produzir conteúdo educacional sobre o mercado local</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>FASE 2 - CONSIDERAÇÃO</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Cliente já sabe o que quer e começa a escolher corretores</strong></p>
+                            <p><strong>Papel do corretor:</strong> Demonstrar autoridade, cases de sucesso, depoimentos</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>FASE 3 - DECISÃO</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Cliente busca informações sobre o corretor nas redes sociais</strong></p>
+                            <p><strong>Papel do corretor:</strong> Ter perfil profissional, ativo e confiável</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>O que acontece com quem não tem presença digital</h3>
+                <div class="highlight-box error">
+                    <ul>
+                        <li>❌ Perde oportunidades para concorrentes mais visíveis</li>
+                        <li>❌ É visto como "desatualizado" ou "pouco profissional"</li>
+                        <li>❌ Depende 100% de indicações tradicionais (limitado)</li>
+                        <li>❌ Demora mais para construir autoridade no mercado local</li>
+                        <li>❌ Perde vendas para corretores que o cliente "conhece" online</li>
+                    </ul>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('intro')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao1'); navigateToSection('secao2')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 2 -->
+            <div class="content-section" id="secao2">
+                <h2>2. BENEFÍCIOS PRÁTICOS DA PRESENÇA DIGITAL</h2>
+
+                <h3>Para o corretor:</h3>
+                <div class="highlight-box success">
+                    <ul>
+                        <li>✅ Geração de leads orgânicos: Clientes chegam até você sem custo de anúncio</li>
+                        <li>✅ Marca pessoal fortalecida: Você se torna referência no seu bairro/região</li>
+                        <li>✅ Autoridade: Clientes confiam mais em quem eles percebem que SABE do que está falando.</li>
+                        <li>✅ Redução de objeções: Cliente já conhece seu trabalho antes do atendimento</li>
+                        <li>✅ Indicações ampliadas: Seu alcance vai além do círculo pessoal</li>
+                        <li>✅ Diferenciação: Você se destaca em um mercado competitivo</li>
+                        <li>✅ Relacionamento contínuo: Você é lembrado quando o cliente precisar</li>
+                    </ul>
+                </div>
+
+                <h3>Para a franquia:</h3>
+                <div class="highlight-box">
+                    <ul>
+                        <li>✅ Visibilidade da marca IMÓVEIS Crédito Real na região</li>
+                        <li>✅ Aumenta as chances de prospecção novos corretores</li>
+                        <li>✅ Fortalecimento da reputação institucional</li>
+                        <li>✅ Maior engajamento da equipe</li>
+                    </ul>
+                </div>
+
+                <h3>O princípio fundamental: NÓS somos o produto</h3>
+                <p>No mercado imobiliário, vendas são feitas por pessoas, para pessoas. Marketing pessoal é pensar que somos empresários de nós mesmos, um "produto" a ser vendido.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>CNPJ = somatório de CPFs.</strong> (Frase do nosso CEO Ruschel)</p>
+                    <p>As transações imobiliárias são feitas de pessoas — é fundamental construir relacionamentos genuínos.</p>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao1')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao2'); navigateToSection('secao3')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 3 -->
+            <div class="content-section" id="secao3">
+                <h2>3. QUAIS REDES SOCIAIS UTILIZAR E COM QUAL OBJETIVO</h2>
+
+                <div class="highlight-box warning">
+                    <p>O principal objetivo das redes sociais é gerar relacionamento — mesmo quando elas também são usadas como canal de vendas. Por isso, a pergunta que deve guiar qualquer conteúdo é: <strong>como posso ser interessante para quem me acompanha?</strong></p>
+                    <p>Uma boa metáfora para entender isso é pensar naquele "amigo chato" que só fala sempre da mesma coisa — ninguém gosta de conviver com alguém assim. Nas redes sociais, acontece o mesmo. Para engajar e atrair clientes, é fundamental variar temas, formatos e abordagens, indo além de falar apenas de imóveis. Ser interessante gera conexão, e conexão gera oportunidades. Evite ser o "amigo chato" e construa uma presença digital que as pessoas queiram acompanhar.</p>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>🟠 INSTAGRAM | Prioridade: ALTA</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Objetivo:</strong> Gerar autoridade, mostrar bastidores, conectar-se emocionalmente com o cliente.</p>
+                            <p><strong>Stories:</strong> algo rápido e informal. <strong>Feed:</strong> é a sua vitrine. Pense em algo mais bem elaborado e pensado, pois ficará como histórico.</p>
+                            
+                            <h4>Por que é essencial:</h4>
+                            <ul>
+                                <li>É uma das plataforma preferida dos brasileiros</li>
+                                <li>Altamente visual (perfeito para imóveis)</li>
+                                <li>Permite conexão emocional através de stories</li>
+                            </ul>
+
+                            <h4>Use para:</h4>
+                            <ul>
+                                <li>Imóveis disponíveis (feed e stories)</li>
+                                <li>Bastidores de visitas e fechamentos</li>
+                                <li>Dicas sobre mercado imobiliário</li>
+                                <li>Depoimentos de clientes</li>
+                            </ul>
+
+                            <h4>STORIES:</h4>
+                            <ul>
+                                <li>um registro de visita a algum empreendimento/lançamento</li>
+                                <li>presença em algum evento ou treinamento</li>
+                                <li>bastidores de um lançamento ou projeto</li>
+                            </ul>
+                            <p>Pensem nos stories em algo que ficará apenas 24h. Sempre algo mais informal e não tão produzido</p>
+                            <p>Se for colocar algo da sua vida pessoal, pense sempre se é algo que qualquer pessoa pode ver. Se não for, coloque em "melhores amigos" que são as pessoas de sua maior intimidade e escolhida por você para ter acesso a algo mais íntimo</p>
+
+                            <h4>FEED:</h4>
+                            <p>O feed é a sua "vitrine" então dedique-se mais às suas postagens. Traga dos stories com mais calma e estratégia para o feed:</p>
+                            <ul>
+                                <li>o registro de algum evento, treinamento que você tenha ido. Pode colocar fotos de palestras, pessoas chaves que encontrou e tirou foto. Pensem em qual mensagem querem deixar.</li>
+                                <li>depoimento de clientes ou entrega de chaves de um imóvel vendido contando como foi a jornada de compra daquelas pessoas. Lembrem-se: sempre deve ter autorização pra isso</li>
+                                <li>dicas sobre mercado imobiliário ou sobre o nicho onde você atua ou bairro onde você é especialista</li>
+                                <li>Conteúdo pessoal leve (sem exageros) e antes de postar, pensar: como eu quero ser percebido.</li>
+                            </ul>
+
+                            <p><strong>Frequência ideal:</strong> 3-5 posts por semana + stories diários</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>💬 WHATSAPP | Prioridade: ALTA</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>No WhatsApp você deve passar confiança e segurança ao cliente, utilize o WhatsApp Business. A foto de perfil deve, como padrão, seguir sempre o fundo preto com símbolo da CR e o nome do contato deve mostrar o nome da sua franquia</p>
+                            
+                            <p><strong>Objetivo:</strong> Atendimento ágil, relacionamento próximo, conversão de leads</p>
+
+                            <h4>Por que é essencial:</h4>
+                            <ul>
+                                <li>Brasil é um dos países que mais utiliza o whatsapp</li>
+                                <li>Canal de comunicação direta e pessoal</li>
+                                <li>Ferramenta de relacionamento e conversão</li>
+                            </ul>
+
+                            <h4>Use para:</h4>
+                            <ul>
+                                <li>Status com novidades de imóveis</li>
+                                <li>Atendimento direto e rápido</li>
+                                <li>Envio de materiais (propostas, documentos)</li>
+                                <li>Acompanhamento pós-venda</li>
+                            </ul>
+
+                            <p><strong>Frequência ideal:</strong> Status 2-3x por semana + atendimento conforme demanda</p>
+                            <p>Dentro deste módulo, temos um PDF exclusivo falando sobre o whatsapp Business, vale a pena conferir.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>🔵 LINKEDIN | Prioridade: MÉDIA</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>É hoje o currículo online e ainda pouco explorado no mercado imobiliário, mas exige um conteúdo mais elaborado.</p>
+                            
+                            <p><strong>Objetivo:</strong> Networking profissional, captação de clientes corporativos/investidores</p>
+
+                            <h4>Use para:</h4>
+                            <ul>
+                                <li>Conteúdo técnico sobre mercado imobiliário</li>
+                                <li>Cases de sucesso empresariais</li>
+                                <li>Artigos sobre investimento imobiliário</li>
+                                <li>Networking com outros profissionais</li>
+                                <li>Post de participação em eventos</li>
+                            </ul>
+
+                            <p><strong>Frequência ideal:</strong> 2 posts por semana</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>🔴 GOOGLE MEU NEGÓCIO | Prioridade: ALTA</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Temos um manual super completo na Central do Franqueado que vale a pena conferir.</p>
+                            
+                            <p><strong>Objetivo:</strong> Ser encontrado em buscas locais, gerar credibilidade</p>
+
+                            <h4>Use para:</h4>
+                            <ul>
+                                <li>Perfil completo com endereço, horário, contato</li>
+                                <li>Avaliações de clientes (fundamentais!)</li>
+                                <li>Fotos da equipe e estrutura</li>
+                                <li>Posts de novidades</li>
+                            </ul>
+
+                            <p><strong>Frequência ideal:</strong> Atualização mensal + resposta a todas as avaliações</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Quando faz sentido usar outras redes:</h3>
+                <ul>
+                    <li><strong>TikTok/Reels:</strong> Se você tem perfil comunicativo e quer atrair compradores do primeiro imóvel, investidores iniciantes</li>
+                    <li><strong>Facebook:</strong> Público 40+ anos, grupos de bairro, eventos locais, anunciar em comunidades e grupos</li>
+                    <li><strong>YouTube:</strong> Se você gosta de gravar e quer criar autoridade com conteúdo longo (tours virtuais, análises de mercado) tende a ser um conteúdo mais perene e funciona como uma grande biblioteca. Além disso, é ligada ao Google e ajuda nas buscas orgânicas.</li>
+                </ul>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao2')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao3'); navigateToSection('secao4')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 4 -->
+            <div class="content-section" id="secao4">
+                <h2>4. BOAS PRÁTICAS DE CONTEÚDO PARA CORRETORES</h2>
+
+                <h3>Princípios fundamentais do marketing pessoal</h3>
+                <p>As redes sociais são sobre:</p>
+                <div class="highlight-box success">
+                    <ul>
+                        <li>✅ RELACIONAMENTO — não algoritmos</li>
+                        <li>✅ CRIAR VALOR — não apenas vender</li>
+                        <li>✅ AUTENTICIDADE — ser único e verdadeiro</li>
+                        <li>✅ RELEVÂNCIA — conteúdo que importa para seu público</li>
+                        <li>✅ AGREGAR VALOR — educar, informar, inspirar</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Lembre-se:</strong></p>
+                    <p>Presença digital é, acima de tudo, constância. Precisa entrar na agenda como um compromisso. Se a decisão for postar toda segunda e quarta-feira, então deve ser toda segunda e toda quarta, sem exceção. É melhor começar com menos frequência, mas manter regularidade, do que tentar fazer muito e não sustentar. Constância gera confiança, lembrança de marca e resultados ao longo do tempo.</p>
+                    <p><em>"Máquinas são probabilidades. Pessoas são possibilidades". (Marcos Piangers)</em></p>
+                    <p><strong>Não vendemos para algoritmos, vendemos para PESSOAS</strong></p>
+                    <p><strong>Foco não é o algoritmo — o foco é o cliente</strong></p>
+                </div>
+
+                <h3>O que postar</h3>
+                
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>📚 CONTEÚDO EDUCACIONAL</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Dicas de compra/venda/locação</li>
+                                <li>Tendências do mercado imobiliário</li>
+                                <li>Explicações sobre processos (financiamento, documentação)</li>
+                                <li>Análise de bairros e regiões</li>
+                                <li>Valores de mercado e valorização</li>
+                            </ul>
+                            <p><strong>Por que funciona:</strong> Posiciona você como autoridade e ajuda o cliente a tomar decisões informadas</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>🏠 IMÓVEIS DISPONÍVEIS</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Fotos de qualidade</li>
+                                <li>Descrição objetiva</li>
+                                <li>Destaques do imóvel</li>
+                                <li>Localização e diferenciais</li>
+                                <li>Vídeo tour (se possível)</li>
+                            </ul>
+                            <p><strong>Atenção:</strong> Não poste APENAS imóveis. Equilibre com outros tipos de conteúdo.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>🎯 BASTIDORES E PROCESSO</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Visitas a imóveis</li>
+                                <li>Reuniões de negociação</li>
+                                <li>Entrega de chaves</li>
+                                <li>Participação em eventos</li>
+                                <li>Treinamentos e capacitações</li>
+                            </ul>
+                            <p><strong>Por que funciona:</strong> Humaniza você e mostra profissionalismo no dia a dia</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>💬 DEPOIMENTOS E CASES DE SUCESSO</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Clientes satisfeitos (com autorização!)</li>
+                                <li>Histórias de superação</li>
+                                <li>Processos de compra/venda bem-sucedidos</li>
+                                <li>Momentos de entrega de chaves</li>
+                            </ul>
+                            <p><strong>Por que funciona:</strong> Gera prova social e credibilidade</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>👤 CONTEÚDO PESSOAL (COM MODERAÇÃO)</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Sua história no mercado imobiliário</li>
+                                <li>Valores e propósito profissional</li>
+                                <li>Hobbies e interesses (quando relevante)</li>
+                                <li>Reflexões sobre o mercado</li>
+                            </ul>
+                            <p><strong>Atenção:</strong> Lembre-se: como você quer ser percebido? Mantenha a imagem profissional.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Proporção ideal de conteúdos (Regra 80/20)</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>80%</h3>
+                        <p>Conteúdo educacional, bastidores, dicas, relacionamento</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>20%</h3>
+                        <p>Divulgação direta de imóveis</p>
+                    </div>
+                </div>
+
+                <h3>Frequência de postagens recomendada</h3>
+                <ul>
+                    <li><strong>Instagram Feed:</strong> 3-5 posts por semana</li>
+                    <li><strong>Instagram Stories:</strong> Diariamente (pelo menos 3-5 stories/dia)</li>
+                    <li><strong>WhatsApp Status:</strong> 2-3x por semana</li>
+                    <li><strong>LinkedIn:</strong> 2 posts por semana</li>
+                    <li><strong>Google Meu Negócio:</strong> 1-2 atualizações por semana</li>
+                </ul>
+
+                <h3>Dicas práticas para criar conteúdo de qualidade</h3>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>📸 QUALIDADE VISUAL</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Use iluminação natural sempre que possível</li>
+                                <li>Mantenha o ambiente organizado nas fotos</li>
+                                <li>Use aplicativos simples de edição (Canva, VSCO, Lightroom)</li>
+                                <li>Seja consistente no estilo visual (filtros, cores)</li>
+                                <li>Evite fotos tremidas ou escuras</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>✍️ TEXTO E LEGENDA</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Comece com um gancho interessante</li>
+                                <li>Seja claro e objetivo</li>
+                                <li>Use parágrafos curtos (facilita leitura)</li>
+                                <li>Inclua emojis com moderação</li>
+                                <li>Sempre termine com call-to-action (CTA)</li>
+                                <li>Revise antes de publicar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>🎬 VÍDEOS</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Grave na horizontal para feed/YouTube</li>
+                                <li>Grave na vertical para Stories/Reels</li>
+                                <li>Iluminação frontal (não com janela atrás)</li>
+                                <li>Áudio limpo (sem muito barulho de fundo)</li>
+                                <li>Primeiros 3 segundos são cruciais</li>
+                                <li>Legenda sempre (muitos assistem sem som)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>#️⃣ HASHTAGS</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Use entre 5-10 hashtags por post</li>
+                                <li>Misture hashtags: genéricas + específicas + locais</li>
+                                <li>Exemplos: #ImoveisCredito Real #CorretoremSP #ApartamentoNovo #MercadoImobiliario</li>
+                                <li>Crie uma hashtag própria (#CorretoraFulana)</li>
+                                <li>Pesquise hashtags que seu público usa</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao3')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao4'); navigateToSection('secao5')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 5 -->
+            <div class="content-section" id="secao5">
+                <h2>5. COMO CONFIGURAR UM PERFIL PROFISSIONAL</h2>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>📸 FOTO DE PERFIL</span>
+                        </div>
+                        <div class="accordion-content">
+                            <h4>✅ IDEAL:</h4>
+                            <ul>
+                                <li>Foto profissional (ou bem produzida)</li>
+                                <li>Seu rosto deve ocupar 60-70% da imagem</li>
+                                <li>Fundo neutro ou profissional</li>
+                                <li>Boa iluminação</li>
+                                <li>Expressão amigável e confiante</li>
+                                <li>Roupa profissional</li>
+                            </ul>
+                            <h4>❌ EVITAR:</h4>
+                            <ul>
+                                <li>Foto de festa/praia</li>
+                                <li>Selfie mal enquadrada</li>
+                                <li>Foto antiga/desatualizada</li>
+                                <li>Logo da empresa sozinha (pessoas se conectam com pessoas)</li>
+                                <li>Foto cortada ou de baixa qualidade</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>✏️ BIO/DESCRIÇÃO DO PERFIL</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Estrutura recomendada:</strong></p>
+                            <ol>
+                                <li>Quem você é (nome + profissão)</li>
+                                <li>O que você faz</li>
+                                <li>Sua especialização/diferencial</li>
+                                <li>Como te encontrar (contato)</li>
+                            </ol>
+                            <h4>Exemplo de bio eficaz:</h4>
+                            <div class="highlight-box">
+                                <p>🏠 Maria Silva | Corretora de Imóveis<br>
+                                📍 Especialista em apartamentos na Zona Sul de SP<br>
+                                💼 Crédito Real Imóveis<br>
+                                📞 (11) 99999-9999<br>
+                                👇 Fale comigo pelo link abaixo</p>
+                            </div>
+                            <h4>Dicas:</h4>
+                            <ul>
+                                <li>Use emojis para destacar informações</li>
+                                <li>Seja específico (evite "vendo imóveis" — isso é óbvio)</li>
+                                <li>Inclua sua região de atuação</li>
+                                <li>Deixe claro como entrar em contato</li>
+                                <li>Atualize se mudar de foco ou região</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>🔗 LINK NA BIO</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Instagram permite apenas 1 link na bio. Use ferramentas como:</p>
+                            <ul>
+                                <li>Linktree</li>
+                                <li>Beacons</li>
+                                <li>Bio.link</li>
+                            </ul>
+                            <h4>O que colocar no link:</h4>
+                            <ul>
+                                <li>WhatsApp direto</li>
+                                <li>Catálogo de imóveis</li>
+                                <li>Site da imobiliária</li>
+                                <li>Formulário de contato</li>
+                                <li>Últimas novidades/lançamentos</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>📌 DESTAQUES DO INSTAGRAM</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Organize seus Stories em Destaques fixos. Exemplos:</p>
+                            <ul>
+                                <li>🏠 <strong>Imóveis Disponíveis</strong> — Destaques de imóveis à venda/locação</li>
+                                <li>✅ <strong>Vendidos/Alugados</strong> — Cases de sucesso</li>
+                                <li>💬 <strong>Depoimentos</strong> — Clientes satisfeitos</li>
+                                <li>📚 <strong>Dicas</strong> — Conteúdo educacional</li>
+                                <li>👤 <strong>Sobre Mim</strong> — Sua história e propósito</li>
+                                <li>📍 <strong>Região</strong> — Informações sobre seu mercado local</li>
+                            </ul>
+                            <p><strong>Dica:</strong> Crie capas personalizadas para os destaques (use Canva)</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>💼 PERFIL COMERCIAL/PROFISSIONAL</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que usar conta comercial/profissional:</strong></p>
+                            <ul>
+                                <li>Acesso a métricas e estatísticas</li>
+                                <li>Possibilidade de criar anúncios</li>
+                                <li>Botão de contato direto</li>
+                                <li>Informações de endereço e horário</li>
+                                <li>Insights sobre seu público</li>
+                            </ul>
+                            <p><strong>Como converter:</strong> Configurações → Conta → Mudar para conta profissional</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>📧 INFORMAÇÕES DE CONTATO</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Facilite o contato do cliente:</p>
+                            <ul>
+                                <li>E-mail profissional (não pessoal tipo @gmail genérico)</li>
+                                <li>Telefone/WhatsApp comercial</li>
+                                <li>Endereço da imobiliária (quando aplicável)</li>
+                                <li>Botões de ação rápida (Ligar, Enviar E-mail, Rota)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Checklist final do perfil profissional</h3>
+                <ul class="checklist">
+                    <li>Foto de perfil profissional e atualizada</li>
+                    <li>Bio completa com informações claras</li>
+                    <li>Link funcional na bio</li>
+                    <li>Conta convertida para profissional/comercial</li>
+                    <li>Informações de contato preenchidas</li>
+                    <li>Destaques organizados e com capas personalizadas</li>
+                    <li>Feed com pelo menos 9 posts publicados</li>
+                    <li>Identidade visual consistente</li>
+                </ul>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao4')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao5'); navigateToSection('secao6')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 6 -->
+            <div class="content-section" id="secao6">
+                <h2>6. ERROS COMUNS NA PRESENÇA DIGITAL (E COMO EVITÁ-LOS)</h2>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 1: Postar apenas imóveis</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Transforma o perfil em catálogo frio e distante</p>
+                            <p><strong>Como evitar:</strong> Regra 80/20 — 80% conteúdo de valor, 20% vendas diretas</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 2: Perfil desatualizado ou incompleto</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Gera desconfiança e passa falta de profissionalismo</p>
+                            <p><strong>Como evitar:</strong> Siga o checklist da seção anterior</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 3: Não responder mensagens e comentários</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Cliente interpreta como desinteresse ou falta de comprometimento</p>
+                            <p><strong>Como evitar:</strong> Responda em até 24h (ideal: primeiras 2 horas)</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 4: Fotos de baixa qualidade</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Desvaloriza o imóvel e sua marca pessoal</p>
+                            <p><strong>Como evitar:</strong> Invista em fotos boas (celular atual já é suficiente), boa iluminação, ambiente organizado</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 5: Inconsistência (postar muito e sumir)</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Algoritmo penaliza e você perde relevância</p>
+                            <p><strong>Como evitar:</strong> Crie um calendário e seja consistente, mesmo que com menos frequência</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 6: Falar sobre política, religião ou polêmicas</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Afasta potenciais clientes com opiniões diferentes</p>
+                            <p><strong>Como evitar:</strong> Mantenha foco em conteúdo profissional e de valor</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 7: Linguagem técnica demais ou informal demais</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Dificulta compreensão ou passa falta de seriedade</p>
+                            <p><strong>Como evitar:</strong> Tom conversacional profissional (como este manual)</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 8: Não ter chamada para ação (CTA)</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Cliente não sabe o próximo passo</p>
+                            <p><strong>Como evitar:</strong> Sempre termine com "Chama no direct", "Fale comigo", "Quer saber mais?"</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 9: Focar no algoritmo ao invés das pessoas</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Perde a essência do relacionamento</p>
+                            <p><strong>Como evitar:</strong> Lembre-se sempre: "Não vendemos para algoritmos, vendemos para PESSOAS"</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ ERRO 10: Postar apenas "para divulgar" sem estratégia</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>Por que é ruim:</strong> Resulta em baixo engajamento e desperdício de esforço</p>
+                            <p><strong>Como evitar:</strong> Tenha clareza sobre: POR QUE fazer? PARA QUEM fazer? COMO fazer?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>O MARK-IA TEM DICAS E IDEIAS QUE PODEM TE AJUDAR MUITO</strong></p>
+                    <a href="https://mark.creditoreal.com.br/" target="_blank" class="btn-mark">Clique aqui e acesse o Mark-IA</a>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao5')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao6'); navigateToSection('secao7')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 7 -->
+            <div class="content-section" id="secao7">
+                <h2>7. BOAS PRÁTICAS DE POSICIONAMENTO E POSTURA PROFISSIONAL</h2>
+
+                <h3>✅ O QUE FORTALECE A IMAGEM DO CORRETOR</h3>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>POSICIONAMENTO:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Ser reconhecido como especialista em uma região/nicho</li>
+                                <li>Compartilhar conhecimento de forma generosa</li>
+                                <li>Demonstrar cases reais de sucesso</li>
+                                <li>Manter consistência na comunicação</li>
+                                <li>Responder com agilidade e educação</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>POSTURA:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Transparência nas informações</li>
+                                <li>Ética em todas as publicações</li>
+                                <li>Respeito aos colegas de profissão</li>
+                                <li>Discrição com informações de clientes</li>
+                                <li>Profissionalismo em comentários e discussões</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>CONTEÚDO:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Informação verdadeira e verificada</li>
+                                <li>Fotos reais (sem enganar o cliente)</li>
+                                <li>Promessas realistas</li>
+                                <li>Educação sobre o mercado</li>
+                                <li>Valorização da marca Crédito Real</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao6')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao7'); navigateToSection('secao8')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 8 -->
+            <div class="content-section" id="secao8">
+                <h2>8. USO ESTRATÉGICO DA PRESENÇA DIGITAL ALINHADA À MARCA CRÉDITO REAL</h2>
+
+                <h3>Como fortalecer a marca pessoal SEM ferir a marca da rede</h3>
+
+                <div class="highlight-box">
+                    <p><strong>PRINCÍPIO: Você é Crédito Real + seu diferencial pessoal</strong></p>
+                    <p>A Gestão CR coloca o cliente no centro, sustentada por 4 pilares:</p>
+                    <ul>
+                        <li>Marca (Crédito Real)</li>
+                        <li>Pessoas (você, corretor)</li>
+                        <li>Protagonismo (postura ativa)</li>
+                        <li>Tecnologia (ferramentas digitais)</li>
+                    </ul>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>✅ SEMPRE:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Identifique-se como corretor Crédito Real</li>
+                                <li>Use o logo da rede em materiais</li>
+                                <li>Reforce os valores da marca (tradição, credibilidade, excelência)</li>
+                                <li>Compartilhe conteúdos institucionais da rede</li>
+                                <li>Siga padrões visuais quando fornecidos</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>✅ PODE:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Criar conteúdo próprio autoral</li>
+                                <li>Desenvolver identidade visual complementar (desde que não conflite)</li>
+                                <li>Ter abordagem e especialização próprias</li>
+                                <li>Construir marca pessoal dentro dos valores Crédito Real</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>❌ NUNCA:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Falar mal da rede ou colegas</li>
+                                <li>Entrar em temas conflitantes: religião, futebol, política</li>
+                                <li>Contradizer posicionamento institucional</li>
+                                <li>Usar marcas concorrentes</li>
+                                <li>Criar confusão sobre qual empresa você representa</li>
+                                <li>Fazer promessas que a Crédito Real não cumpre</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Coerência, ética e padrão profissional</h3>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>COERÊNCIA:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>O que você posta = Como você atende = Quem você é</li>
+                                <li>Mantenha a mesma mensagem em todas as redes</li>
+                                <li>Seu digital deve refletir sua atuação real</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>ÉTICA:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Não invente informações sobre imóveis</li>
+                                <li>Não use fotos de imóveis sem autorização</li>
+                                <li>Respeite privacidade dos clientes</li>
+                                <li>Cumpra o que promete online</li>
+                                <li>Seja transparente sobre comissões e processos</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>PADRÃO PROFISSIONAL:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Horário de resposta estabelecido (e cumprido)</li>
+                                <li>Linguagem adequada sempre</li>
+                                <li>Aparência profissional em fotos/vídeos</li>
+                                <li>Organização visual do perfil</li>
+                                <li>Atualização regular de conteúdo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao7')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao8'); navigateToSection('secao9')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 9 -->
+            <div class="content-section" id="secao9">
+                <h2>9. ESTRATÉGIA E PENSAMENTO FORA DA CAIXA</h2>
+
+                <h3>Para "DIVERSÃO" ou fazer "NEGÓCIO"?</h3>
+                <div class="highlight-box warning">
+                    <p><strong>Se for NEGÓCIO = tem que ter ESTRATÉGIA</strong></p>
+                </div>
+
+                <h3>Estratégia é sobre FOCO:</h3>
+                <ul>
+                    <li>Decidir até o que NÃO fazer</li>
+                    <li>Pensar FORA DA CAIXA e ser criativo</li>
+                    <li><strong>POR QUE fazer?</strong> (Real objetivo da estratégia)</li>
+                    <li><strong>PARA QUEM fazer?</strong> (Base deve ser as pessoas)</li>
+                    <li><strong>COMO fazer?</strong> (Maneira como será criado e distribuído)</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Isso requer: Autoconhecimento + Autenticidade + Coragem</strong></p>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>AUTOCONHECIMENTO:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Saber dizer NÃO</li>
+                                <li>Conhecer seus limites</li>
+                                <li>Deixar mostrar sua vulnerabilidade</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>AUTENTICIDADE:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Não quer dizer somente "chamar atenção" ou "fazer dancinhas"</li>
+                                <li>Tem a ver com ser único e verdadeiro</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>CORAGEM:</span>
+                        </div>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>COR = CORAÇÃO = EMOÇÃO</li>
+                                <li>Ter coragem para se expor</li>
+                                <li>Ter coragem para criar</li>
+                                <li>Ter coragem para ser você mesmo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Fidigital: O físico ainda importa!</h3>
+                <div class="highlight-box success">
+                    <p><strong>FIDIGITAL = FÍSICO + DIGITAL</strong></p>
+                    <p>Começamos a nos relacionar pelo digital, mas o físico ainda é muito importante!</p>
+                    <ul>
+                        <li>As redes sociais são uma extensão do nosso trabalho presencial</li>
+                        <li>O relacionamento verdadeiro acontece na combinação dos dois</li>
+                        <li>Use o digital para se aproximar, mas cultive encontros presenciais sempre que possível</li>
+                    </ul>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao8')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('secao9'); navigateToSection('conclusao')">Próximo →</button>
+                </div>
+            </div>
+
+            <!-- CONCLUSÃO -->
+            <div class="content-section" id="conclusao">
+                <h2>CONCLUSÃO</h2>
+
+                <p>A presença digital deixou de ser opcional no mercado imobiliário. Não se trata de ser "influencer", mas de ser encontrado, gerar confiança e criar oportunidades de negócio.</p>
+
+                <h3>Lembre-se sempre:</h3>
+
+                <div class="highlight-box">
+                    <h4>📱 O mundo é mobile e interconectado</h4>
+                    <ul>
+                        <li>86,6% dos brasileiros têm internet</li>
+                        <li>Estar fora do digital não é mais uma opção</li>
+                        <li>É sobre RELACIONAMENTO, não sobre algoritmos</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>👥 Vendemos para PESSOAS, não para máquinas</h4>
+                    <ul>
+                        <li>Máquinas são probabilidades</li>
+                        <li>Pessoas são possibilidades</li>
+                        <li>CNPJ = somatório de CPFs</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>🎯 Estratégia vem antes de execução</h4>
+                    <ul>
+                        <li>Saiba o PORQUÊ você está fazendo</li>
+                        <li>Saiba PARA QUEM você está criando</li>
+                        <li>Defina COMO você vai executar</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box success">
+                    <h4>🎬 Comece simples, mas comece!</h4>
+                    <ul>
+                        <li>Perfil bem configurado + 2 posts por semana</li>
+                        <li>Seja consistente: melhor pouco com frequência do que muito sem regularidade</li>
+                        <li>Seja autêntico: mostre quem você é, não tente ser quem não é</li>
+                        <li>Seja profissional: sua presença digital é seu cartão de visitas 24h</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <p style="font-size: 1.3em; text-align: center; font-style: italic;">
+                        "A internet nos nivela. A nossa CRIATIVIDADE nos diferencia."<br>
+                        <strong>— Martha Gabriel</strong>
+                    </p>
+                </div>
+
+                <div class="highlight-box">
+                    <p style="font-size: 1.3em; text-align: center; font-style: italic;">
+                        "Se eu não sei para onde vou, qualquer lugar serve."<br>
+                        <strong>— Alice no País das Maravilhas</strong>
+                    </p>
+                </div>
+
+                <div class="highlight-box warning" style="margin-top: 40px;">
+                    <h3 style="text-align: center; color: var(--cr-preto);">Mensagem final:</h3>
+                    <p style="font-size: 1.5em; text-align: center; font-weight: 600;">
+                        Presença digital não é sobre aparecer. É sobre ser lembrado, escolhido e recomendado.
+                    </p>
+                </div>
+
+                <div class="highlight-box success" style="margin-top: 30px;">
+                    <h3 style="text-align: center;">MÓDULO CONCLUÍDO!</h3>
+                    <p style="text-align: center; font-size: 1.2em;">
+                        RETORNE À PÁGINA DA UNIVERSIDADE CORPORATIVA E REALIZE A AVALIAÇÃO PARA AVANÇAR NA SUA CERTIFICAÇÃO.
+                    </p>
+                </div>
+
+                <div class="btn-container" style="margin-top: 40px;">
+                    <button class="btn btn-secondary" onclick="navigateToSection('secao9')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="markComplete('conclusao'); navigateToSection('finalizado')">Finalizar Manual ✓</button>
+                </div>
+            </div>
+
+            <!-- PÁGINA FINAL -->
+            <div class="content-section" id="finalizado">
+                <div style="text-align: center; padding: 60px 20px;">
+                    <div style="font-size: 100px; margin-bottom: 30px;">🎓</div>
+                    <h2 style="font-size: 3em; color: var(--cr-laranja); margin-bottom: 20px;">MÓDULO CONCLUÍDO!</h2>
+                    
+                    <div class="highlight-box success" style="max-width: 800px; margin: 40px auto; padding: 40px;">
+                        <p style="font-size: 1.5em; line-height: 1.8; font-weight: 500;">
+                            RETORNE À PÁGINA DA UNIVERSIDADE CORPORATIVA E REALIZE A AVALIAÇÃO PARA AVANÇAR NA SUA CERTIFICAÇÃO.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 50px;">
+                        <div style="font-size: 80px; margin-bottom: 20px;">✓</div>
+                        <p style="font-size: 1.3em; color: var(--cr-preto); opacity: 0.8;">
+                            Parabéns por concluir o Manual de Boas Práticas - Presença Digital!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Estado de progresso
+        let completedSections = new Set();
+        const totalSections = 11;
+
+        // Função para navegar entre seções
+        function navigateToSection(sectionId) {
+            // Esconder todas as seções
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Mostrar seção selecionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Atualizar menu
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+
+            // Scroll para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Função para marcar seção como completa
+        function markComplete(sectionId) {
+            completedSections.add(sectionId);
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('completed');
+            updateProgress();
+        }
+
+        // Atualizar barra de progresso
+        function updateProgress() {
+            const progress = (completedSections.size / totalSections) * 100;
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            progressFill.style.width = progress + '%';
+            progressFill.textContent = Math.round(progress) + '%';
+            progressText.textContent = `${completedSections.size} de ${totalSections} seções concluídas`;
+        }
+
+        // Event listeners para menu
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                navigateToSection(sectionId);
+            });
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const isActive = this.classList.contains('active');
+
+                // Fechar todos os accordions
+                document.querySelectorAll('.accordion-header').forEach(h => {
+                    h.classList.remove('active');
+                    h.nextElementSibling.classList.remove('active');
+                });
+
+                // Abrir o clicado (se não estava ativo)
+                if (!isActive) {
+                    this.classList.add('active');
+                    content.classList.add('active');
+                }
+            });
+        });
+
+        // Checklist functionality
+        document.querySelectorAll('.checklist li').forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('checked');
+            });
+        });
+
+        // Inicializar
+        updateProgress();
+    </script>
+</body>
+</html>
