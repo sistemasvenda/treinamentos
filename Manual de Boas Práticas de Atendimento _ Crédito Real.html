@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Boas Práticas de Atendimento | Crédito Real</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(to right, #ea580c, #f97316);
+            color: white;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            display: none;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-section {
+            margin-top: 1rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background: #9a3412;
+            border-radius: 9999px;
+            height: 0.75rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-content {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 140px;
+        }
+
+        .sidebar-title {
+            font-size: 1.125rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ea580c;
+        }
+
+        .nav-button {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            transition: all 0.2s;
+        }
+
+        .nav-button:hover {
+            background: #fed7aa;
+        }
+
+        .nav-button.active {
+            background: #ea580c;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex: 1;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #ea580c;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ea580c;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            background: #fed7aa;
+            border-left: 4px solid #ea580c;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .principle-box {
+            background: #fed7aa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .principle-title {
+            font-weight: bold;
+            color: #ea580c;
+            margin-bottom: 0.5rem;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: start;
+            margin-bottom: 0.75rem;
+        }
+
+        .list-icon {
+            color: #ea580c;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .example-box {
+            background: #fed7aa;
+            border-left: 4px solid #ea580c;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .example-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-text {
+            font-style: italic;
+        }
+
+        .mark-box {
+            background: #fef3c7;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mark-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .mark-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ea580c;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .mark-button:hover {
+            background: #c2410c;
+        }
+
+        .mark-highlight {
+            background: #ea580c;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mark-highlight-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .mark-highlight-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: #ea580c;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .mark-highlight-button:hover {
+            background: #f3f4f6;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-item {
+            background: #fed7aa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid #fdba74;
+        }
+
+        .grid-item p {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .note-box {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .note-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .border-item {
+            border-left: 4px solid #ea580c;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .border-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .border-item-example {
+            font-size: 0.875rem;
+            font-style: italic;
+            color: #4b5563;
+        }
+
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid #ea580c;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .highlight-text {
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #e5e7eb;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn:disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-prev {
+            background: #4b5563;
+            color: white;
+        }
+
+        .btn-prev:hover:not(:disabled) {
+            background: #374151;
+        }
+
+        .btn-mark {
+            background: #fef3c7;
+            color: #ea580c;
+        }
+
+        .btn-mark:hover {
+            background: #fde68a;
+        }
+
+        .btn-mark.marked {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-next {
+            background: #ea580c;
+            color: white;
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background: #c2410c;
+        }
+
+        .completion-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(to right, #ea580c, #f97316);
+            color: white;
+            border-radius: 0.5rem;
+        }
+
+        .completion-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+        }
+
+        .completion-text {
+            margin-bottom: 1rem;
+        }
+
+        .completion-note {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .final-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: black;
+            color: white;
+            border-radius: 0.5rem;
+            border: 4px solid #ea580c;
+        }
+
+        .final-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: #f97316;
+        }
+
+        .final-text {
+            font-size: 1.125rem;
+        }
+
+        .intro-box {
+            background: #fed7aa;
+            border-left: 4px solid #ea580c;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-text {
+            font-size: 1.125rem;
+            line-height: 1.75;
+        }
+
+        .usage-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 0.375rem;
+        }
+
+        .usage-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .usage-list {
+            list-style-position: inside;
+            font-size: 0.875rem;
+        }
+
+        .usage-list li {
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                height: 100vh;
+                width: 100%;
+                max-width: 320px;
+                background: white;
+                z-index: 50;
+                transition: left 0.3s;
+                padding: 1rem;
+                overflow-y: auto;
+            }
+
+            .sidebar.open {
+                left: 0;
+                box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar-content {
+                position: static;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 45;
+            }
+
+            .overlay.show {
+                display: block;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-title {
+                font-size: 1.125rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-title">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <span>Manual de Boas Práticas | Crédito Real</span>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span>Progresso do Treinamento</span>
+                    <span id="progress-percentage">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <p class="progress-text">
+                    <span id="sections-completed">0</span> de <span id="total-sections">17</span> seções concluídas
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <h2 class="sidebar-title">Índice de Conteúdo</h2>
+                <nav id="nav-menu"></nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div id="content-area">
+                <!-- Conteúdo será inserido dinamicamente -->
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="nav-btn btn-prev" id="btn-prev" onclick="previousSection()">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    Anterior
+                </button>
+
+                <button class="nav-btn btn-mark" id="btn-mark" onclick="markAsRead()">
+                    Marcar como Lida
+                </button>
+
+                <button class="nav-btn btn-next" id="btn-next" onclick="nextSection()">
+                    Próxima
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentSection = 0;
+        let completedSections = [];
+
+        const sections = [
+            {
+                id: 0,
+                title: "Apresentação",
+                content: `
+                    <h1>Manual de Boas Práticas de Atendimento</h1>
+                    <div class="intro-box">
+                        <p class="intro-text">
+                            Bem-vindo ao Manual de Boas Práticas de Atendimento da Rede Imóveis Crédito Real. 
+                            Este material foi desenvolvido para padronizar e qualificar o atendimento em toda a rede.
+                        </p>
+                    </div>
+                    <div class="usage-box">
+                        <p class="usage-title">📋 Como usar este painel:</p>
+                        <ul class="usage-list">
+                            <li>Navegue pelas seções usando o menu lateral</li>
+                            <li>Marque as seções como lidas ao concluir cada uma</li>
+                            <li>Acompanhe seu progresso pela barra no topo</li>
+                            <li>Acesse o MARK-IA através dos botões destacados</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                id: 1,
+                title: "1. Objetivo do Manual",
+                content: `
+                    <h2>1. Objetivo do Manual</h2>
+                    <p>
+                        Este Manual de Boas Práticas de Atendimento tem como objetivo padronizar e qualificar o atendimento prestado pelos corretores da Rede Imóveis Crédito Real, assegurando uma experiência clara, profissional e eficiente ao cliente em todas as etapas da jornada imobiliária.
+                    </p>
+                `
+            },
+            {
+                id: 2,
+                title: "2. Perfil do Corretor Crédito Real",
+                content: `
+                    <h2>2. Perfil do Corretor Crédito Real</h2>
+                    <p>
+                        O corretor Crédito Real deve atuar com foco em relacionamento, estratégia e resultado, apresentando as seguintes características:
+                    </p>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Ética, transparência e responsabilidade profissional;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Comunicação clara, cordial e objetiva;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Proatividade e empatia no atendimento;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Domínio do mercado imobiliário local, do imóvel e da legislação vigente;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Uso disciplinado de ferramentas digitais e CRM;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Compromisso com treinamentos e desenvolvimento contínuo;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Escuta ativa: saber ouvir e entender as necessidades do cliente;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Networking ativo, participação em eventos sociais e interações sociais diversas;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Apresentação pessoal impecável para gerar confiança.</p>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                title: "3. Princípios do Atendimento",
+                content: `
+                    <h2>3. Princípios do Atendimento Crédito Real</h2>
+                    <p>
+                        O atendimento ao cliente deve ser conduzido com base nos seguintes princípios:
+                    </p>
+                    <div class="principle-box">
+                        <div class="principle-title">Rapidez:</div>
+                        <p>tempo de resposta ágil desde o primeiro contato;</p>
+                    </div>
+                    <div class="principle-box">
+                        <div class="principle-title">Humanização:</div>
+                        <p>atenção genuína às necessidades e sentimentos do cliente;</p>
+                    </div>
+                    <div class="principle-box">
+                        <div class="principle-title">Estratégia:</div>
+                        <p>cada contato deve conduzir o cliente para o próximo passo;</p>
+                    </div>
+                    <div class="principle-box">
+                        <div class="principle-title">Clareza:</div>
+                        <p>comunicação simples, objetiva e transparente;</p>
+                    </div>
+                    <div class="principle-box">
+                        <div class="principle-title">Continuidade:</div>
+                        <p>acompanhamento do início ao pós-venda.</p>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                title: "4. Tempo de Atendimento",
+                content: `
+                    <h2>4. Tempo de Atendimento e Primeira Resposta</h2>
+                    
+                    <h3>4.1 Importância do Tempo de Atendimento</h3>
+                    <p>
+                        O tempo de resposta é um fator decisivo para conversão. Clientes que solicitam informações demonstram alto interesse e esperam retorno rápido e qualificado.
+                    </p>
+                    
+                    <h3>4.2 Diretrizes de Primeira Resposta</h3>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>O primeiro contato deve ocorrer preferencialmente em até 5 minutos após a solicitação do cliente;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>A primeira resposta deve ser humanizada e profissional;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>O objetivo inicial é engajar o cliente e direcioná-lo para a próxima etapa do atendimento, como qualificação ou agendamento de visita.</p>
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                title: "5. Abordagem e Comunicação",
+                content: `
+                    <h2>5. Abordagem Inicial e Comunicação</h2>
+                    
+                    <h3>5.1 Abordagem Inicial</h3>
+                    <p>O corretor deve:</p>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Cumprimentar o cliente de forma cordial e respeitosa;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Identificar-se, informando nome, CRECI e vínculo com a Imóveis Crédito Real;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Apresentar, de forma breve, a história sólida e a credibilidade da Crédito Real, reforçando a atuação da empresa no mercado imobiliário;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Explicar o motivo do contato de forma objetiva;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Demonstrar interesse genuíno pela necessidade apresentada.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="example-title">Exemplo de abordagem inicial (script):</p>
+                        <p class="example-text">
+                            "Olá, meu nome é João, sou corretor da Imóveis Crédito Real, Agência (---------). Atuamos há muitos anos no mercado imobiliário e temos uma sólida e reconhecida história. Gostaria de entender melhor sua necessidade para poder ajudá-lo da melhor forma."
+                        </p>
+                    </div>
+
+                    <div class="mark-box">
+                        <p class="mark-title">NO MARK VOCÊ ENCONTRA VÁRIAS OPÇÕES DE SCRIPT DE ABORDAGEM E ACOLHIMENTO.</p>
+                        <a href="https://mark.creditoreal.com.br/" target="_blank" class="mark-button">
+                            Clique aqui para acessar o MARK-IA
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <h3>5.2 Comunicação no Atendimento</h3>
+                    <p>
+                        Durante todo o atendimento, o corretor deve manter uma apresentação pessoal impecável (roupas limpas, bem passadas e higiene pessoal irretocável) alinhada ao posicionamento profissional da Imóveis Crédito Real, e seguir os seguintes princípios:
+                    </p>
+
+                    <div class="border-item">
+                        <p class="border-item-title">Utilizar linguagem simples e acessível;</p>
+                        <p class="border-item-example">Exemplo: "Claro, vou te explicar isso de um jeito bem simples pra você entender."</p>
+                    </div>
+
+                    <div class="border-item">
+                        <p class="border-item-title">Evitar jargões técnicos sem explicação;</p>
+                        <p class="border-item-example">Exemplo: "Quando falamos em escritura, estamos nos referindo ao documento que formaliza a propriedade do imóvel."</p>
+                    </div>
+
+                    <div class="border-item">
+                        <p class="border-item-title">Adaptar a comunicação ao perfil do cliente;</p>
+                        <p class="border-item-example">Exemplo: usar explicações mais detalhadas com clientes iniciantes e comunicações mais objetivas com clientes experientes;</p>
+                    </div>
+
+                    <div class="border-item">
+                        <p class="border-item-title">Garantir confidencialidade das informações;</p>
+                        <p class="border-item-example">Exemplo: "Todas as informações que você compartilhar comigo serão tratadas com total sigilo."</p>
+                    </div>
+
+                    <div class="border-item">
+                        <p class="border-item-title">Manter o cliente informado sobre o andamento do processo;</p>
+                        <p class="border-item-example">Exemplo: "Quero lhe atualizar sobre como está o andamento da negociação até aqui."</p>
+                    </div>
+                `
+            },
+            {
+                id: 6,
+                title: "6. Jornada do Cliente",
+                content: `
+                    <h2>6. Atendimento ao Longo da Jornada do Cliente</h2>
+                    <p>
+                        O atendimento deve acompanhar toda a jornada do cliente, de forma estruturada e organizada.
+                    </p>
+
+                    <h3>6.1 Diagnóstico Inicial</h3>
+                    <p>No início do atendimento, o corretor deve:</p>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Utilizar perguntas abertas para compreender o perfil do cliente;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Praticar escuta ativa, demonstrando atenção e interesse;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Identificar necessidades, preferências e urgência;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Registrar as informações no CRM.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="example-title">Exemplo de pergunta aberta:</p>
+                        <p class="example-text">"O que é mais importante para você neste momento ao buscar um imóvel?"</p>
+                    </div>
+
+                    <div class="mark-box">
+                        <p class="mark-title">NO MARK VOCÊ ENCONTRA VÁRIAS OPÇÕES DE PERGUNTAS ASSERTIVAS ALÉM DE OUTRAS DICAS PARA AJUDAR NESTE DIAGNÓSTICO INICIAL.</p>
+                        <a href="https://mark.creditoreal.com.br/" target="_blank" class="mark-button">
+                            Clique aqui para acessar o MARK-IA
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <h3>6.2 Condução Estratégica do Atendimento</h3>
+                    <p>Ao longo da jornada, o corretor deve:</p>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Personalizar o atendimento conforme as informações coletadas;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Manter contato ativo e organizado;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Ajustar a comunicação ao momento de decisão do cliente;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Utilizar argumentos alinhados às necessidades identificadas.</p>
+                    </div>
+
+                    <div class="note-box">
+                        <p class="note-title">OBS:</p>
+                        <p>Ajustar a comunicação ao momento de decisão significa adequar a abordagem conforme o estágio em que o cliente se encontra:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Quando o cliente ainda está conhecendo opções, a comunicação deve ser mais explicativa e informativa;</li>
+                            <li>Quando o cliente demonstra interesse claro, a comunicação deve ser mais objetiva e direcionada para a tomada de decisão.</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="example-title">Exemplo:</p>
+                        <p class="example-text">"Neste primeiro momento, vou lhe apresentar algumas opções para você entender o que o mercado oferece. Quando identificarmos o imóvel ideal, avançamos para os próximos passos."</p>
+                    </div>
+                `
+            },
+            {
+                id: 7,
+                title: "7. Tratamento de Objeções",
+                content: `
+                    <h2>7. Tratamento de Objeções</h2>
+                    <p>
+                        As objeções fazem parte do processo de atendimento e devem ser tratadas de forma estruturada.
+                    </p>
+
+                    <p style="font-weight: 600;">O corretor deve:</p>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Ouvir atentamente a objeção apresentada;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Identificar a real preocupação do cliente;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Validar o sentimento demonstrado;</p>
+                    </div>
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <p>Responder com informações claras e objetivas, mantendo postura profissional.</p>
+                    </div>
+
+                    <div class="principle-box">
+                        <p style="font-weight: bold; margin-bottom: 0.75rem;">Como fazer:</p>
+                        <p>Primeiro, escute sem interromper;</p>
+                        <p>Em seguida, demonstre compreensão;</p>
+                        <p>Depois, esclareça com dados e explicações alinhadas ao que o cliente busca.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="example-title">Exemplo 1:</p>
+                        <p class="example-text">"Entendo que o valor seja uma preocupação. Vamos analisar juntos as opções disponíveis dentro do que você considera ideal."</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="example-title">Exemplo 2:</p>
+                        <p class="example-text">"Entendo sua dúvida. Vamos revisar esse ponto com calma para que você se sinta seguro antes de avançarmos."</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="example-title">Exemplo 3:</p>
+                        <p class="example-text">"Faz sentido a sua preocupação. Posso lhe explicar melhor como funciona essa etapa para esclarecer tudo antes da decisão."</p>
+                    </div>
+
+                    <div class="mark-box">
+                        <p class="mark-title">NO MARK VOCÊ ENCONTRA VÁRIAS OPÇÕES DE CONTORNO DE OBJEÇÕES.</p>
+                        <a href="https://mark.creditoreal.com.br/" target="_blank" class="mark-button">
+                            Clique aqui para acessar o MARK-IA
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                title: "8. Próximo Passo",
+                content: `
+                    <h2>8. Condução para o Próximo Passo</h2>
+                    <p>
+                        Todo atendimento deve SEMPRE resultar em um próximo passo claramente definido, como:
+                    </p>
+
+                    <div class="grid-2">
+                        <div class="grid-item">
+                            <p>Agendamento de visita;</p>
+                        </div>
+                        <div class="grid-item">
+                            <p>Nova conversa de alinhamento;</p>
+                        </div>
+                        <div class="grid-item">
+                            <p>Envio de proposta;</p>
+                        </div>
+                        <div class="grid-item">
+                            <p>Avanço para negociação.</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p class="highlight-text">
+                            Cabe ao corretor conduzir o cliente, evitando atendimentos passivos ou sem direcionamento.
+                        </p>
+                    </div>
+                `
+            },
+            {
+                id: 9,
+                title: "9. Apresentação de Imóveis",
+                content: `
+                    <h2>9. Apresentação de Imóveis</h2>
+                    <p>
+                        A apresentação de imóveis é parte essencial da experiência de atendimento e deve ser conduzida de forma preparada e estratégica.
+                    </p>
+
+                    <p style="font-weight: 600;">O corretor deve:</p>
+
+                    <div class="principle-box">
+                        <p class="principle-title">Chegar com no mínimo 15 minutos de antecedência:</p>
+                        <p>importante para abrir o local para arejar, ligar as luzes e identificar possíveis imprevistos;</p>
+                    </div>
+
+                    <div class="principle-box">
+                        <p class="principle-title">Preparar-se previamente para a visita:</p>
+                        <p>revisar informações do imóvel, valores e características antes do atendimento;</p>
+                    </div>
+
+                    <div class="principle-box">
+                        <p class="principle-title">Conhecer profundamente o imóvel e a região:</p>
+                        <p>estar apto a responder dúvidas sobre o imóvel e o entorno;</p>
+                    </div>
+
+                    <div class="principle-box">
+                        <p class="principle-title">Apresentar os diferenciais alinhados ao perfil do cliente:</p>
+                        <p>destacar aquilo que atende às necessidades identificadas;</p>
+                    </div>
+
+                    <div class="principle-box">
+                        <p class="principle-title">Utilizar comunicação clara e envolvente:</p>
+                        <p>explicar os pontos do imóvel de forma objetiva e acessível;</p>
+                    </div>
+
+                    <div class="principle-box">
+                        <p class="principle-title">Conduzir o cliente para o próximo passo:</p>
+                        <p>ao final da visita, direcionar o cliente para continuidade do atendimento.</p>
+                    </div>
+                `
+            },
+            {
+                id: 10,
+                title: "10. Negociação e Propostas",
+                content: `
+                    <h2>10. Negociação e Propostas</h2>
+                    <p>
+                        Na etapa de negociação, o corretor deve atuar de forma clara, organizada e transparente.
+                    </p>
+
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <div>
+                            <p style="font-weight: 600;">Atuar com transparência:</p>
+                            <p style="color: #4b5563;">explicar valores, condições e etapas do processo sem omissões;</p>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <div>
+                            <p style="font-weight: 600;">Apresentar propostas de forma estruturada:</p>
+                            <p style="color: #4b5563;">organizar informações de preço, prazos e condições para fácil compreensão;</p>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <div>
+                            <p style="font-weight: 600;">Esclarecer dúvidas:</p>
+                            <p style="color: #4b5563;">responder às perguntas do cliente com paciência e clareza;</p>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <span class="list-icon">▸</span>
+                        <div>
+                            <p style="font-weight: 600;">Manter o cliente informado:</p>
+                            <p style="color: #4b5563;">atualizar o cliente sobre cada avanço ou mudança na negociação.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <p style="font-size: 1.125rem;">
+                            O objetivo é gerar <span style="font-weight: bold;">segurança e confiança</span> durante todo o processo.
+                        </p>
+                    </div>
+
+                    <div class="mark-box">
+                        <p class="mark-title">NO MARK VOCÊ ENCONTRA VÁRIAS TÉCNICAS DE NEGOCIAÇÃO E FECHAMENTO DE VENDAS.</p>
+                        <a href="https://mark.creditoreal.com.br/" target="_blank" class="mark-button">
+                            Clique aqui para acessar o MARK-IA
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+                `
+            },
+            {
+                id: 11,
+                title: "11. Follow-up e Relacionamento",
+                content: `
+                    <h2>11. Follow-up e Relacionamento</h2>
+                    <p>
+                        O acompanhamento do cliente deve ocorrer durante toda a jornada.
+                    </p>
+
+                    <p style="font-weight: 600; margin-bottom: 1rem;">O corretor deve:</p>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Realizar follow-ups (acompanhamento) organizados após contatos e visitas;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Manter o relacionamento ativo até a definição da negociação;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Reforçar informações relevantes conforme o andamento do processo.</p>
+                    </div>
+                `
+            },
+            {
+                id: 12,
+                title: "12. Pós-venda",
+                content: `
+                    <h2>12. Pós-venda</h2>
+                    <p>
+                        O atendimento não se encerra com a assinatura do contrato.
+                    </p>
+
+                    <p style="font-weight: 600; margin-bottom: 1rem;">O corretor deve:</p>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Acompanhar o cliente até a finalização completa do processo;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Prestar suporte quanto a documentos e prazos;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Manter o relacionamento visando satisfação e futuras indicações.</p>
+                    </div>
+                `
+            },
+            {
+                id: 13,
+                title: "13. Uso de Tecnologia",
+                content: `
+                    <h2>13. Uso de Tecnologia no Atendimento</h2>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Registrar todas as interações no CRM;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Manter perfis profissionais alinhados à imagem da Crédito Real;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Utilizar as ferramentas disponíveis para organização do atendimento.</p>
+                    </div>
+
+                    <div class="mark-highlight">
+                        <p class="mark-highlight-title">
+                            UTILIZAR O MARK PARA SANAR DÚVIDAS, OBTER DICAS, ACESSAR SCRIPTS, CRIAR ANÚNCIOS E TEXTOS DE VENDA, ENTRE DIVERSAS OUTRAS APLICAÇÕES NO DIA A DIA COMERCIAL.
+                        </p>
+                        <a href="https://mark.creditoreal.com.br/" target="_blank" class="mark-highlight-button">
+                            Acessar MARK-IA Agora
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+                `
+            },
+            {
+                id: 14,
+                title: "14. Ética e Compliance",
+                content: `
+                    <h2>14. Ética, Conduta e Compliance</h2>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Agir sempre de forma ética e transparente;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Cumprir a legislação imobiliária vigente;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Não realizar promessas que não possam ser cumpridas;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Zelar pela reputação da Rede Imóveis Crédito Real;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Reportar irregularidades aos responsáveis.</p>
+                    </div>
+                `
+            },
+            {
+                id: 15,
+                title: "15. Desenvolvimento Contínuo",
+                content: `
+                    <h2>15. Desenvolvimento Contínuo</h2>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Participar dos treinamentos e capacitações da Crédito Real;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Atualizar-se sobre mercado, processos e ferramentas;</p>
+                    </div>
+
+                    <div class="principle-box" style="display: flex; align-items: start;">
+                        <span class="list-icon" style="margin-top: 0.25rem;">▸</span>
+                        <p style="font-size: 1.125rem; margin-left: 0.75rem;">Buscar feedbacks constantes para aprimorar o atendimento.</p>
+                    </div>
+                `
+            },
+            {
+                id: 16,
+                title: "Considerações Finais",
+                content: `
+                    <h2>Considerações Finais</h2>
+                    <div class="info-box">
+                        <p style="font-size: 1.125rem; line-height: 1.75;">
+                            Este Manual de Boas Práticas de Atendimento representa o compromisso da Imóveis Crédito Real com um atendimento profissional, padronizado e orientado ao cliente. Corretores que aplicam estas diretrizes fortalecem relacionamentos, aumentam a qualidade das negociações e contribuem para a consolidação da marca Crédito Real em todos os mercados de atuação.
+                        </p>
+                    </div>
+
+                    <div class="completion-box">
+                        <h3 class="completion-title">Parabéns por concluir o Manual!</h3>
+                        <p class="completion-text">Agora você está preparado para oferecer um atendimento de excelência seguindo os padrões Crédito Real.</p>
+                        <p class="completion-note">Continue acessando este material sempre que precisar revisar algum conceito ou procedimento.</p>
+                    </div>
+
+                    <div class="final-box">
+                        <h3 class="final-title">📋 Módulo concluído!</h3>
+                        <p class="final-text">
+                            Retorne à página da Universidade Corporativa e realize a avaliação para avançar na sua certificação.
+                        </p>
+                    </div>
+                `
+            }
+        ];
+
+        function init() {
+            renderMenu();
+            renderSection(currentSection);
+            updateProgress();
+            updateNavButtons();
+        }
+
+        function renderMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.innerHTML = '';
+            
+            sections.forEach((section) => {
+                const button = document.createElement('button');
+                button.className = 'nav-button';
+                button.onclick = () => goToSection(section.id);
+                
+                const icon = completedSections.includes(section.id)
+                    ? '<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+                    : '<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>';
+                
+                button.innerHTML = icon + '<span>' + section.title + '</span>';
+                
+                if (section.id === currentSection) {
+                    button.classList.add('active');
+                }
+                
+                menu.appendChild(button);
+            });
+        }
+
+        function renderSection(id) {
+            const contentArea = document.getElementById('content-area');
+            const section = sections.find(s => s.id === id);
+            contentArea.innerHTML = '<div class="section-content active">' + section.content + '</div>';
+            window.scrollTo(0, 0);
+        }
+
+        function goToSection(id) {
+            currentSection = id;
+            renderMenu();
+            renderSection(id);
+            updateNavButtons();
+            toggleMenu(false);
+        }
+
+        function nextSection() {
+            if (currentSection < sections.length - 1) {
+                markAsRead();
+                currentSection++;
+                renderMenu();
+                renderSection(currentSection);
+                updateNavButtons();
+            }
+        }
+
+        function previousSection() {
+            if (currentSection > 0) {
+                currentSection--;
+                renderMenu();
+                renderSection(currentSection);
+                updateNavButtons();
+            }
+        }
+
+        function markAsRead() {
+            if (!completedSections.includes(currentSection)) {
+                completedSections.push(currentSection);
+                updateProgress();
+                renderMenu();
+                updateMarkButton();
+            }
+        }
+
+        function updateProgress() {
+            const progress = (completedSections.length / sections.length * 100).toFixed(0);
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('progress-percentage').textContent = progress + '%';
+            document.getElementById('sections-completed').textContent = completedSections.length;
+            document.getElementById('total-sections').textContent = sections.length;
+        }
+
+        function updateNavButtons() {
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            const btnMark = document.getElementById('btn-mark');
+
+            btnPrev.disabled = currentSection === 0;
+            btnNext.disabled = currentSection === sections.length - 1;
+
+            updateMarkButton();
+
+            if (currentSection === sections.length - 1) {
+                btnMark.style.display = 'none';
+            } else {
+                btnMark.style.display = 'flex';
+            }
+        }
+
+        function updateMarkButton() {
+            const btnMark = document.getElementById('btn-mark');
+            if (completedSections.includes(currentSection)) {
+                btnMark.textContent = '✓ Lida';
+                btnMark.classList.add('marked');
+            } else {
+                btnMark.textContent = 'Marcar como Lida';
+                btnMark.classList.remove('marked');
+            }
+        }
+
+        function toggleMenu(force) {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            if (force !== undefined) {
+                if (force) {
+                    sidebar.classList.add('open');
+                    overlay.classList.add('show');
+                } else {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('show');
+                }
+            } else {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('show');
+            }
+        }
+
+        // Inicializar ao carregar a página
+        window.onload = init;
+    </script>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rotina de Alta Performance do Corretor | Imóveis Crédito Real</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --orange: #F97316;
+    --orange-dark: #C2410C;
+    --orange-light: #FFF4EC;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --card: #1A1A1A;
+    --card2: #202020;
+    --border: #2E2E2E;
+    --text: #F0F0F0;
+    --muted: #888888;
+    --green: #22C55E;
+    --green-dark: #16A34A;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+  /* ── HEADER ── */
+  .header { background: var(--dark); border-bottom: 1px solid var(--border); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; flex-shrink: 0; position: sticky; top: 0; z-index: 100; }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .header-logo { width: 38px; height: 38px; border-radius: 9px; background: linear-gradient(135deg, var(--orange), var(--orange-dark)); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .header-title { font-size: 12px; color: var(--orange); font-weight: 700; letter-spacing: 0.08em; font-family: 'Space Mono', monospace; }
+  .header-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .header-progress { display: flex; align-items: center; gap: 12px; }
+  .progress-label { font-size: 13px; color: var(--muted); }
+  .progress-bar-wrap { width: 150px; height: 7px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--orange), var(--orange-dark)); border-radius: 4px; transition: width 0.5s ease; }
+
+  /* ── TABS ── */
+  .tabs { background: var(--dark); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; padding: 0 20px; flex-shrink: 0; }
+  .tab-btn { background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; padding: 13px 18px; font-size: 14px; font-weight: 500; color: var(--muted); white-space: nowrap; transition: all 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; gap: 7px; }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); font-weight: 700; }
+  .tab-btn.done { color: var(--text); }
+  .tab-done-mark { color: var(--green); font-size: 11px; }
+
+  /* ── CONTENT ── */
+  .content { flex: 1; overflow-y: auto; padding: 36px 28px; }
+  .content-inner { max-width: 900px; margin: 0 auto; }
+
+  /* ── INTRO ── */
+  .intro { max-width: 700px; margin: 0 auto; text-align: center; padding: 56px 24px; }
+  .intro-logo { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, var(--orange), var(--orange-dark)); display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 30px; box-shadow: 0 0 48px rgba(249,115,22,.35); }
+  .intro h1 { color: var(--text); font-size: 42px; font-weight: 900; line-height: 1.15; margin: 24px 0 10px; font-family: 'Space Mono', monospace; }
+  .intro h1 span { color: var(--orange); }
+  .intro-sub { color: var(--muted); font-size: 17px; line-height: 1.7; margin: 0 0 36px; }
+  .tags-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 52px; }
+  .feature-card { background: var(--card2); border: 1px solid var(--border); border-radius: 14px; padding: 20px 18px; text-align: left; }
+  .feature-emoji { font-size: 28px; margin-bottom: 12px; }
+  .feature-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.45; }
+  .start-btn { background: linear-gradient(135deg, var(--orange), var(--orange-dark)); color: #000; border: none; border-radius: 14px; padding: 18px 52px; font-size: 17px; font-weight: 900; cursor: pointer; letter-spacing: 0.04em; box-shadow: 0 4px 28px rgba(249,115,22,.4); font-family: 'Plus Jakarta Sans', sans-serif; transition: transform 0.15s, box-shadow 0.15s; }
+  .start-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(249,115,22,.5); }
+
+  /* ── TYPOGRAPHY ── */
+  .mod-tag { display: inline-block; background: rgba(249,115,22,.15); color: var(--orange); border: 1px solid rgba(249,115,22,.3); border-radius: 5px; padding: 3px 12px; font-size: 12px; font-family: 'Space Mono', monospace; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .mod-h2 { color: var(--text); font-size: 28px; font-weight: 900; margin: 14px 0 6px; font-family: 'Space Mono', monospace; line-height: 1.2; }
+  .mod-h2 span { color: var(--orange); }
+  .mod-subtitle { color: var(--muted); font-size: 15.5px; margin-bottom: 30px; line-height: 1.5; }
+  .section-title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; border-bottom: 2px solid var(--orange); padding-bottom: 10px; margin: 34px 0 18px; }
+  .section-title h3 { color: var(--text); font-size: 18.5px; font-weight: 700; }
+  .section-title .section-sub { color: var(--muted); font-size: 12.5px; font-style: italic; line-height: 1.4; }
+  .body-text { color: var(--text); font-size: 15.5px; line-height: 1.8; margin-bottom: 12px; }
+  .fonte { font-size: 12px; color: var(--muted); font-style: italic; border-left: 2px solid var(--border); padding-left: 10px; margin: 4px 0 16px; line-height: 1.5; }
+
+  /* ── TAGS ── */
+  .tag { display: inline-block; border-radius: 4px; padding: 3px 11px; font-size: 11.5px; font-family: 'Space Mono', monospace; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+  .tag-orange { background: rgba(249,115,22,.15); color: var(--orange); border: 1px solid rgba(249,115,22,.3); }
+  .tag-green { background: rgba(34,197,94,.15); color: var(--green); border: 1px solid rgba(34,197,94,.3); }
+
+  /* ── STATS ── */
+  .stats-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
+  .stat-card { background: var(--card2); border: 1px solid var(--border); border-radius: 14px; padding: 22px 18px; text-align: center; flex: 1 1 160px; }
+  .stat-value { font-size: 42px; font-weight: 900; color: var(--orange); font-family: 'Space Mono', monospace; line-height: 1; margin-bottom: 10px; }
+  .stat-label { font-size: 13.5px; color: var(--text); line-height: 1.45; }
+  .stat-fonte { font-size: 11px; color: var(--muted); margin-top: 7px; font-style: italic; }
+
+  /* ── INFO CARD ── */
+  .info-card { background: var(--card2); border: 1px solid var(--border); border-left: 3px solid var(--orange); border-radius: 11px; padding: 18px 22px; margin-bottom: 11px; display: flex; gap: 14px; align-items: flex-start; }
+  .info-emoji { font-size: 24px; line-height: 1.3; flex-shrink: 0; }
+  .info-body { flex: 1; }
+  .info-title { font-weight: 700; color: var(--orange); font-size: 15.5px; margin-bottom: 7px; }
+  .info-text { color: var(--text); font-size: 15px; line-height: 1.65; }
+  .info-fonte { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 8px; }
+
+  /* ── DESTAQUE BOX ── */
+  .destaque { background: rgba(249,115,22,.07); border: 1px solid rgba(249,115,22,.25); border-radius: 11px; padding: 18px 22px; margin: 18px 0; }
+  .destaque-title { font-weight: 700; color: var(--orange); font-size: 15.5px; margin-bottom: 9px; }
+  .destaque-text { color: var(--text); font-size: 15px; line-height: 1.7; }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; margin-bottom: 22px; border-radius: 11px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  thead th { background: var(--orange); color: #000; padding: 13px 17px; text-align: left; font-weight: 700; font-size: 13.5px; }
+  tbody tr:nth-child(odd) { background: var(--card); }
+  tbody tr:nth-child(even) { background: var(--card2); }
+  tbody td { padding: 12px 17px; color: var(--text); border-bottom: 1px solid var(--border); line-height: 1.5; font-size: 14px; }
+  tbody td:first-child { font-weight: 600; }
+
+  /* ── CHECKLIST ── */
+  .check-item { display: flex; align-items: center; gap: 15px; padding: 13px 18px; border-radius: 10px; cursor: pointer; margin-bottom: 8px; transition: all 0.2s; user-select: none; border: 1px solid var(--border); background: var(--card2); }
+  .check-item:hover { border-color: rgba(249,115,22,.4); }
+  .check-item.checked { background: rgba(34,197,94,.08); border-color: rgba(34,197,94,.35); }
+  .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--muted); background: transparent; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; font-size: 14px; font-weight: 900; color: transparent; }
+  .check-item.checked .check-box { background: var(--green); border-color: var(--green); color: #000; }
+  .check-label { font-size: 15px; color: var(--text); line-height: 1.5; transition: all 0.2s; }
+  .check-item.checked .check-label { color: var(--muted); text-decoration: line-through; }
+
+  /* ── ARROW LIST ── */
+  .arrow-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .arrow-icon { color: var(--orange); font-weight: 900; font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .arrow-text { color: var(--text); font-size: 15.5px; line-height: 1.6; }
+
+  /* ── MANDAMENTOS ── */
+  .mandamentos-grid { display: grid; gap: 11px; }
+  .mandamento { display: flex; gap: 15px; align-items: flex-start; background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 15px 20px; }
+  .mandamento-num { color: #000; background: var(--orange); border-radius: 6px; padding: 4px 11px; font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 900; flex-shrink: 0; line-height: 1.6; }
+  .mandamento-text { color: var(--text); font-size: 15px; line-height: 1.6; }
+
+  /* ── PLANO GRID ── */
+  .plano-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 11px; }
+  .plano-card { display: flex; gap: 15px; align-items: center; background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+  .plano-emoji { font-size: 22px; flex-shrink: 0; }
+  .plano-text { color: var(--text); font-size: 15px; line-height: 1.5; }
+
+  /* ── RAIO-X ── */
+  .raiox { background: rgba(249,115,22,.07); border: 1px solid rgba(249,115,22,.25); border-radius: 11px; padding: 20px 24px; margin-bottom: 18px; }
+  .raiox-title { font-weight: 700; color: var(--orange); font-size: 15.5px; margin-bottom: 14px; }
+  .raiox-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 11px; }
+  .raiox-dot { color: var(--orange); font-weight: 900; font-size: 20px; flex-shrink: 0; line-height: 1.3; }
+  .raiox-q { color: var(--text); font-size: 15.5px; line-height: 1.6; }
+  .raiox-footer { color: var(--text); font-size: 14.5px; line-height: 1.7; font-style: italic; border-top: 1px solid rgba(249,115,22,.18); padding-top: 14px; margin-top: 14px; }
+  .raiox-footer strong { color: var(--orange); }
+
+  /* ── REFLEXÃO ── */
+  .reflexao-item { display: flex; gap: 15px; align-items: flex-start; background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; margin-bottom: 10px; }
+  .reflexao-num { color: var(--orange); font-family: 'Space Mono', monospace; font-weight: 700; font-size: 14.5px; flex-shrink: 0; line-height: 1.5; }
+  .reflexao-text { color: var(--text); font-size: 15.5px; line-height: 1.6; }
+
+  /* ── TEMPLATES ── */
+  .template-label { color: var(--orange); font-size: 14.5px; font-weight: 700; margin-bottom: 9px; margin-top: 18px; }
+  .template-text { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; color: var(--text); font-size: 14.5px; line-height: 1.7; font-style: italic; }
+
+  /* ── FRASE FINAL ── */
+  .frase-final { margin-top: 40px; background: rgba(249,115,22,.07); border: 1px solid rgba(249,115,22,.25); border-radius: 15px; padding: 32px; text-align: center; }
+  .frase-final p { font-size: 21px; font-weight: 900; color: var(--orange); font-family: 'Space Mono', monospace; line-height: 1.45; margin-bottom: 12px; }
+  .frase-final span { color: var(--muted); font-size: 14.5px; }
+
+  /* ── NAV BUTTONS ── */
+  .nav-btns { display: flex; justify-content: space-between; margin-top: 52px; padding-top: 26px; border-top: 1px solid var(--border); }
+  .btn-prev { background: var(--card2); color: var(--text); border: 1px solid var(--border); border-radius: 11px; padding: 13px 26px; cursor: pointer; font-size: 15.5px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; transition: all 0.2s; }
+  .btn-prev:hover { background: var(--card); }
+  .btn-prev:disabled { background: var(--border); color: var(--muted); cursor: default; }
+  .btn-next { background: linear-gradient(135deg, var(--orange), var(--orange-dark)); color: #000; border: none; border-radius: 11px; padding: 13px 30px; cursor: pointer; font-size: 15.5px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; }
+  .btn-next:hover { opacity: .88; }
+  .btn-done { background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.35); border-radius: 11px; padding: 13px 26px; color: var(--green); font-size: 15.5px; font-weight: 700; }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  @media (max-width: 640px) {
+    .header { padding: 12px 16px; }
+    .content { padding: 24px 16px; }
+    .intro { padding: 36px 16px; }
+    .intro h1 { font-size: 30px; }
+    .mod-h2 { font-size: 22px; }
+    .progress-bar-wrap { width: 100px; }
+    .tabs { padding: 0 8px; }
+    .tab-btn { padding: 11px 13px; font-size: 13px; }
+    .stat-value { font-size: 34px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">
+    <div class="header-logo">🏆</div>
+    <div>
+      <div class="header-title">IMÓVEIS CRÉDITO REAL</div>
+      <div class="header-sub">Rotina de Alta Performance</div>
+    </div>
+  </div>
+  <div class="header-progress">
+    <span class="progress-label" id="prog-label">0% concluído</span>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs" id="tabs-bar" style="display:none">
+  <button class="tab-btn" onclick="goTo(0)" id="tab0">🧠 Ciência da Rotina</button>
+  <button class="tab-btn" onclick="goTo(1)" id="tab1">📅 Rotina Diária</button>
+  <button class="tab-btn" onclick="goTo(2)" id="tab2">🤝 Agenciar</button>
+  <button class="tab-btn" onclick="goTo(3)" id="tab3">⭐ Pós-Venda</button>
+  <button class="tab-btn" onclick="goTo(4)" id="tab4">🚀 Alta Performance</button>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+<div class="content-inner">
+
+<!-- ══ INTRO ══════════════════════════════════════════════════════════════ -->
+<div class="screen active" id="screen-intro">
+  <div class="intro">
+    <div class="intro-logo">🏆</div>
+    <div><span class="mod-tag">Imóveis Crédito Real</span></div>
+    <h1>ROTINA DE<br><span>ALTA PERFORMANCE</span><br>DO CORRETOR</h1>
+    <p class="intro-sub">Aprenda como estruturar sua rotina para ter resultados consistentes no mercado imobiliário.</p>
+    <div class="tags-row">
+      <span class="tag tag-orange">5 Módulos</span>
+      <span class="tag tag-orange">Checklists Interativos</span>
+      <span class="tag tag-orange">Conteúdo Científico</span>
+      <span class="tag tag-orange">Método CR</span>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-emoji">🧠</div><div class="feature-title">Ciência do Hábito</div><div class="feature-desc">Por que a rotina funciona</div></div>
+      <div class="feature-card"><div class="feature-emoji">📅</div><div class="feature-title">Rotina Estruturada</div><div class="feature-desc">O dia ideal do corretor CR</div></div>
+      <div class="feature-card"><div class="feature-emoji">🤝</div><div class="feature-title">Agenciar é Relação</div><div class="feature-desc">Captação que gera indicações</div></div>
+      <div class="feature-card"><div class="feature-emoji">⭐</div><div class="feature-title">Pós-Venda</div><div class="feature-desc">Sua estratégia de fidelização</div></div>
+    </div>
+    <button class="start-btn" onclick="startTraining()">Iniciar Treinamento →</button>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 1 ════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-0">
+  <span class="mod-tag">Módulo 1</span>
+  <h2 class="mod-h2">A Ciência por Trás da <span>Rotina</span></h2>
+  <p class="mod-subtitle">Por que a rotina define o seu resultado — e não a motivação.</p>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-value">45%</div><div class="stat-label">das nossas ações diárias são automáticas (hábitos)</div><div class="stat-fonte">Wood, Quinn & Kashy — Duke University, 2002</div></div>
+    <div class="stat-card"><div class="stat-value">21x</div><div class="stat-label">mais conversão respondendo em até 5 minutos</div><div class="stat-fonte">Harvard Business Review, 2011</div></div>
+    <div class="stat-card"><div class="stat-value">95%</div><div class="stat-label">de aumento nos lucros com 5% mais retenção</div><div class="stat-fonte">Reichheld & Sasser — HBR, 1990</div></div>
+  </div>
+
+  <div class="section-title"><h3>1.1 — A pesquisa que muda tudo</h3></div>
+  <p class="body-text">Um estudo da Duke University revelou que aproximadamente <strong style="color:var(--orange)">45% das ações cotidianas</strong> são hábitos automáticos — comportamentos repetidos no mesmo contexto, sem deliberação consciente. Isso significa que quase metade do que você faz no trabalho já está no piloto automático, querendo ou não.</p>
+  <p class="fonte">WOOD, W.; QUINN, J. M.; KASHY, D. A. Habits in everyday life. Journal of Personality and Social Psychology, v. 83, n. 6, 2002.</p>
+  <div class="destaque"><p class="destaque-text">Se quase metade do que fazemos é hábito, então o resultado do corretor é reflexo direto dos hábitos que ele constrói.</p></div>
+  <p class="body-text">Quando você cria uma rotina produtiva, você programa esse piloto automático a seu favor — e libera energia mental para o que realmente exige atenção: o cliente na sua frente.</p>
+
+  <div class="section-title"><h3>1.2 — O loop do hábito</h3></div>
+  <div class="info-card"><div class="info-emoji">🔄</div><div class="info-body"><div class="info-title">Gatilho → Rotina → Recompensa</div><div class="info-text">Todo hábito funciona em 3 etapas: um gatilho que dispara a ação, a rotina (a ação em si) e a recompensa que reforça o comportamento. Entender esse ciclo te dá poder para criar hábitos que funcionem a seu favor.</div><div class="info-fonte">DUHIGG, C. O Poder do Hábito. Objetiva, 2012.</div></div></div>
+
+  <div class="section-title"><h3>1.3 — Os 3 pilares da alta performance</h3></div>
+  <div class="info-card"><div class="info-emoji">🎯</div><div class="info-body"><div class="info-title">DISCIPLINA</div><div class="info-text">Fazer o que precisa ser feito, mesmo quando não está com vontade. Disciplina não é sofrimento — é comprometimento com quem você quer se tornar.</div></div></div>
+  <div class="info-card"><div class="info-emoji">🔁</div><div class="info-body"><div class="info-title">CONSTÂNCIA</div><div class="info-text">Resultados no mercado imobiliário não vêm da venda isolada. Vêm da repetição diária. Um agenciamento por semana, durante 52 semanas, constrói um portfólio sólido.</div></div></div>
+  <div class="info-card"><div class="info-emoji">💪</div><div class="info-body"><div class="info-title">RESILIÊNCIA</div><div class="info-text">O corretor de alta performance leva 'nãos' sem se abalar. Cada objeção é informação. Cada recusa é uma oportunidade de aprender. A venda está do outro lado da rejeição.</div><div class="info-fonte">DWECK, C. S. Mindset: A Nova Psicologia do Sucesso. Objetiva, 2017.</div></div></div>
+
+  <div class="section-title"><h3>1.4 — Corretor Comum vs. Alta Performance</h3></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Corretor Sem Rotina</th><th>Corretor de Alta Performance</th></tr></thead>
+    <tbody>
+      <tr><td>Age por impulso e urgência</td><td>Tem agenda planejada na véspera</td></tr>
+      <tr><td>Espera o telefone tocar</td><td>Prospecta ativamente todo dia</td></tr>
+      <tr><td>Esquece o follow-up</td><td>Usa CRM para registrar tudo</td></tr>
+      <tr><td>Trabalha muito, produz pouco</td><td>Trabalha com foco, produz com consistência</td></tr>
+      <tr><td>Resultados erráticos</td><td>Resultados previsíveis e crescentes</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="section-title"><h3>1.5 — Raio-X da Rotina Atual</h3></div>
+  <div class="raiox">
+    <div class="raiox-title">Antes de seguir, responda com total honestidade:</div>
+    <div class="raiox-item"><span class="raiox-dot">•</span><span class="raiox-q">Quantos agenciamentos você fez nos últimos 7 dias?</span></div>
+    <div class="raiox-item"><span class="raiox-dot">•</span><span class="raiox-q">Quantos contatos ativos você tem hoje no CRM?</span></div>
+    <div class="raiox-item"><span class="raiox-dot">•</span><span class="raiox-q">Quantas visitas realizou na última semana?</span></div>
+    <div class="raiox-item"><span class="raiox-dot">•</span><span class="raiox-q">Quantas propostas gerou no último mês?</span></div>
+    <div class="raiox-footer">Se seus resultados hoje não te agradam, provavelmente sua <strong>rotina precisa mudar</strong> antes de qualquer outra coisa.</div>
+  </div>
+
+  <div class="section-title"><h3>1.6 — Reflexão pessoal</h3></div>
+  <p class="body-text" style="color:var(--muted);font-size:14px;margin-bottom:16px">Reserve um momento para responder com honestidade — anote no seu caderno ou agenda:</p>
+  <div class="reflexao-item"><span class="reflexao-num">1.</span><span class="reflexao-text">Que horário você realmente começa a trabalhar com foco?</span></div>
+  <div class="reflexao-item"><span class="reflexao-num">2.</span><span class="reflexao-text">Quantas horas por semana você dedica a agenciar imóveis?</span></div>
+  <div class="reflexao-item"><span class="reflexao-num">3.</span><span class="reflexao-text">Você tem um ritual matinal antes de começar a atender clientes?</span></div>
+  <div class="reflexao-item"><span class="reflexao-num">4.</span><span class="reflexao-text">Qual é o seu maior ladrão de tempo no dia a dia?</span></div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" disabled>← Anterior</button>
+    <button class="btn-next" onclick="goTo(1)">Próximo Módulo →</button>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 2 ════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-1">
+  <span class="mod-tag">Módulo 2</span>
+  <h2 class="mod-h2">A Rotina Diária do Corretor <span>CR</span></h2>
+  <p class="mod-subtitle">Alta performance não é trabalhar 12 horas. É trabalhar as horas certas.</p>
+
+  <div class="section-title">
+    <h3>2.1 — A estrutura do dia ideal</h3>
+    <span class="section-sub">(Apenas um norteador — os horários dos corretores de alta performance são flexíveis, principalmente no final da tarde e nos finais de semana.)</span>
+  </div>
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:14%">Período</th><th style="width:46%">Atividade</th><th style="width:40%">Por que importa</th></tr></thead>
+    <tbody>
+      <tr><td>8h – 10h</td><td>Revisão do CRM + planejamento</td><td>Clareza de prioridades antes de qualquer contato</td></tr>
+      <tr><td>10h – 12h</td><td>Prospecção ativa + agenciamentos</td><td>Energia no pico: ideal para ligações e visitas</td></tr>
+      <tr><td>12h – 13h</td><td>Almoço e pausa estratégica</td><td>Recuperação de energia — a tarde rende mais</td></tr>
+      <tr><td>13h – 17h</td><td>Atendimento a compradores + visitas</td><td>Clientes estão mais disponíveis à tarde</td></tr>
+      <tr><td>17h – 18h</td><td>Follow-ups, CRM, planejamento do dia seguinte</td><td>Fechar o dia registrado garante continuidade</td></tr>
+      <tr><td>18h</td><td>Postagem nas redes, estudos, atualizações e disponibilidade para possíveis atendimentos</td><td>Presença digital e desenvolvimento contínuo</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="section-title"><h3>2.2 — As 5 Causas da Venda</h3></div>
+  <p class="body-text">No Método CR, a venda é consequência de 5 ações com frequência. São as <strong style="color:var(--orange)">causas da venda</strong>:</p>
+  <div class="info-card"><div class="info-emoji">1️⃣</div><div class="info-body"><div class="info-title">1 — Agenciar</div><div class="info-text">Buscar novos imóveis para a sua carteira. Sem produto, não há venda.</div></div></div>
+  <div class="info-card"><div class="info-emoji">2️⃣</div><div class="info-body"><div class="info-title">2 — Prospectar</div><div class="info-text">Gerar novos contatos de compradores qualificados, digital ou presencial.</div></div></div>
+  <div class="info-card"><div class="info-emoji">3️⃣</div><div class="info-body"><div class="info-title">3 — Atender</div><div class="info-text">Atendimento consultivo em até 5 minutos para o primeiro contato.</div></div></div>
+  <div class="info-card"><div class="info-emoji">4️⃣</div><div class="info-body"><div class="info-title">4 — Visitar</div><div class="info-text">Marcar e realizar visitas. A visita é onde o sonho vira proposta.</div></div></div>
+  <div class="info-card"><div class="info-emoji">5️⃣</div><div class="info-body"><div class="info-title">5 — Propor</div><div class="info-text">Conduzir a proposta de forma estratégica. Não espere o cliente tomar a iniciativa.</div></div></div>
+
+  <div class="section-title"><h3>2.3 — Gestão do Tempo: Blocos de Foco</h3></div>
+  <div class="info-card"><div class="info-emoji">🎯</div><div class="info-body"><div class="info-title">A Única Coisa</div><div class="info-text">Pergunte-se: "Qual é a única coisa que, se feita todos os dias, mais impactaria o meu resultado?" Para a maioria dos corretores, a resposta é: agenciar ou prospectar. Reserve 2 horas da manhã só para isso. Sem WhatsApp, sem redes sociais.</div><div class="info-fonte">KELLER, G.; PAPASAN, J. A Única Coisa. Alta Books, 2013.</div></div></div>
+  <div class="info-card"><div class="info-emoji">📊</div><div class="info-body"><div class="info-title">Lei de Pareto (80/20)</div><div class="info-text">20% dos seus imóveis geram 80% das visitas. 20% dos seus clientes geram 80% das suas vendas. Concentre sua energia nesses 20% antes de qualquer outra coisa.</div><div class="info-fonte">KOCH, R. O Princípio 80/20. Alta Books, 2015.</div></div></div>
+
+  <div class="section-title"><h3>2.4 — Checklist Diário</h3></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <p style="color:var(--text);font-size:15.5px;font-weight:600">Meu dia será mais produtivo se eu tiver as seguintes ações:</p>
+    <span class="tag tag-orange" id="check2-count">0/10 concluídos</span>
+  </div>
+  <div id="checklist2">
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Registrei e revisei o CRM</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Atualizei a carteira de imóveis</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Fiz follow-up com clientes em negociação</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Entrei em contato com pelo menos 4 proprietários (agenciamento)</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Planejei as prioridades do dia seguinte</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Fiz pelo menos 3 contatos de prospecção com compradores</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Publiquei ou agendei 1 conteúdo nas redes sociais</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Respondi todos os leads em até 5 minutos</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Fiz pelo menos 1 ação de pós-venda</span></div>
+    <div class="check-item" onclick="toggle(this,'c2')"><div class="check-box">✓</div><span class="check-label">Realizei ou agendei pelo menos 1 visita</span></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo(0)">← Anterior</button>
+    <button class="btn-next" onclick="goTo(2)">Próximo Módulo →</button>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 3 ════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-2">
+  <span class="mod-tag">Módulo 3</span>
+  <h2 class="mod-h2">Agenciar É <span>Relacionamento</span></h2>
+  <p class="mod-subtitle">E relacionamento é negócio.</p>
+
+  <div class="section-title"><h3>3.1 — Por que agenciar bem é sua maior vantagem</h3></div>
+  <p class="body-text">O agenciamento é onde tudo começa. Mas há algo que vai além do produto: o momento do agenciamento é uma das maiores oportunidades de relacionamento que você tem. Quando você visita um proprietário com profissionalismo e clareza, você não está apenas captando um imóvel — está construindo uma relação de confiança.</p>
+  <div class="destaque"><div class="destaque-title">Reflexão importante:</div><p class="destaque-text">O proprietário do imóvel que você agenciou hoje é o seu cliente com maior potencial para uma nova compra. Ele já te conhece, já confiou em você. Trate cada agenciamento como o início de uma relação de longo prazo — não como uma transação isolada.</p></div>
+
+  <div class="section-title"><h3>3.2 — Agenciamento que gera indicações</h3></div>
+  <div class="info-card"><div class="info-emoji">🏘️</div><div class="info-body"><div class="info-title">Você se torna a referência local</div><div class="info-text">Quando um vizinho ou amigo do proprietário precisar vender ou comprar, o nome que vem à cabeça é o seu. Isso é marketing de indicação — e custa zero reais.</div></div></div>
+  <p class="body-text" style="margin-top:16px">Para isso acontecer, cada contato com o proprietário precisa ser impecável:</p>
+  <div class="arrow-item"><span class="arrow-icon">→</span><span class="arrow-text">Chegue no horário combinado</span></div>
+  <div class="arrow-item"><span class="arrow-icon">→</span><span class="arrow-text">Faça a avaliação com critério e explique sua metodologia</span></div>
+  <div class="arrow-item"><span class="arrow-icon">→</span><span class="arrow-text">Apresente o plano de marketing do imóvel com clareza</span></div>
+  <div class="arrow-item"><span class="arrow-icon">→</span><span class="arrow-text">Mantenha comunicação frequente sobre o andamento das visitas</span></div>
+  <div class="arrow-item"><span class="arrow-icon">→</span><span class="arrow-text">Compartilhe feedbacks dos visitantes — mesmo os negativos</span></div>
+
+  <div class="section-title"><h3>3.3 — Corretor Vendedor vs. Corretor Consultor</h3></div>
+  <p class="body-text">O cliente de hoje não busca alguém que apenas mostre imóveis. Ele quer alguém que entenda suas necessidades, oriente com clareza e ofereça segurança. <strong style="color:var(--orange)">Você não vende imóveis. Você entrega projetos de vida.</strong></p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Corretor Vendedor</th><th>Corretor Consultor</th></tr></thead>
+    <tbody>
+      <tr><td>Fala sobre o imóvel</td><td>Fala sobre o sonho do cliente</td></tr>
+      <tr><td>Responde perguntas</td><td>Faz as perguntas certas</td></tr>
+      <tr><td>Fecha a venda e desaparece</td><td>Acompanha antes, durante e depois</td></tr>
+      <tr><td>É substituível</td><td>É insubstituível</td></tr>
+      <tr><td>Depende de anúncios</td><td>É indicado espontaneamente</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="section-title"><h3>3.4 — Como Calcular Sua Meta de Agenciamento</h3></div>
+  <div class="info-card"><div class="info-emoji">📊</div><div class="info-body"><div class="info-title">Como calcular sua meta</div><div class="info-text">Se sua taxa de conversão de captação é 10%, você precisa contatar 20 proprietários para captar 2 imóveis. Para captar 8/mês → 80 contatos → ~4 por dia útil.</div></div></div>
+  <div class="destaque"><div class="destaque-title">Use este raciocínio para definir a sua meta:</div><p class="destaque-text">1. Defina quantos agenciamentos quer por mês. 2. Divida pela sua taxa de conversão para saber quantos proprietários contatar. 3. Divida pelos dias úteis do mês para chegar na sua meta diária. Anote no seu CRM e acompanhe semanalmente.</p></div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo(1)">← Anterior</button>
+    <button class="btn-next" onclick="goTo(3)">Próximo Módulo →</button>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 4 ════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-3">
+  <span class="mod-tag">Módulo 4</span>
+  <h2 class="mod-h2">Pós-Venda: <span>Onde os Melhores Constroem Seu Legado</span></h2>
+  <p class="mod-subtitle">A venda não termina na assinatura.</p>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-value">5%</div><div class="stat-label">a mais de retenção pode elevar lucros em até 95%</div><div class="stat-fonte">Reichheld & Sasser — HBR, 1990</div></div>
+    <div class="stat-card"><div class="stat-value">≈0</div><div class="stat-label">custo de aquisição de um lead indicado por cliente satisfeito</div></div>
+  </div>
+  <div class="destaque"><div class="destaque-title">Dado que precisa entrar na sua cabeça:</div><p class="destaque-text">Um cliente que indica você traz um lead com custo de aquisição próximo de zero, confiança prévia e taxa de conversão muito superior à de um lead frio. Pós-venda não é custo. É investimento com retorno garantido.</p></div>
+
+  <div class="section-title"><h3>4.1 — Roteiro do Pós-Venda CR: 5 etapas</h3></div>
+  <div class="info-card"><div class="info-emoji">1️⃣</div><div class="info-body"><div class="info-title">1 — Agradecimento personalizado</div><div class="info-text">Envie uma mensagem ou ligue em até 24h após a assinatura. Se possível, surpreenda com um presente simbólico: vinho, planta, item decorativo. Pequenos gestos criam grandes memórias.</div></div></div>
+  <div class="info-card"><div class="info-emoji">2️⃣</div><div class="info-body"><div class="info-title">2 — Contato após a entrega das chaves</div><div class="info-text">Ligue ou mande mensagem perguntando como foi a mudança, se está tudo certo e se precisa de indicação de fornecedores. Demonstre interesse genuíno.</div></div></div>
+  <div class="info-card"><div class="info-emoji">3️⃣</div><div class="info-body"><div class="info-title">3 — Acompanhamento de longo prazo</div><div class="info-text">Crie lembretes no CRM para 3, 6 e 12 meses. Pergunte como está a experiência. Reforce que você está à disposição.</div></div></div>
+  <div class="info-card"><div class="info-emoji">4️⃣</div><div class="info-body"><div class="info-title">4 — Solicite feedback e indicações</div><div class="info-text">Peça um depoimento. Sugira que, se conhecer alguém precisando de imóvel, ficaria feliz em ajudar. Clientes satisfeitos adoram indicar — às vezes só precisam ser lembrados.</div></div></div>
+  <div class="info-card"><div class="info-emoji">5️⃣</div><div class="info-body"><div class="info-title">5 — Rede de clientes fidelizados</div><div class="info-text">Crie um grupo ou lista VIP no WhatsApp. Compartilhe conteúdos sobre mercado imobiliário, oportunidades e dicas. Você vira referência mesmo após a venda.</div></div></div>
+
+  <div class="section-title"><h3>4.2 — Templates de Mensagem</h3></div>
+  <div class="template-label">📩 Mensagem 1 — Após a assinatura (até 24h)</div>
+  <div class="template-text">"[Nome], quero te agradecer pela confiança em mim e na Imóveis Crédito Real para realizar esse momento tão especial. Foi um prazer acompanhar você nessa jornada. Qualquer coisa que precisar, pode contar comigo. Sucesso na nova etapa!"</div>
+  <div class="template-label">📩 Mensagem 2 — Após 3 meses</div>
+  <div class="template-text">"Oi [Nome]! Já faz 3 meses que você está na nova casa — o tempo voa! Queria saber como está sendo a experiência, se está gostando do bairro, dos vizinhos, de tudo. Se precisar de alguma indicação de prestador ou tiver qualquer dúvida sobre o imóvel, pode me chamar!"</div>
+
+  <div class="section-title"><h3>4.3 — Checklist de Pós-Venda</h3></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <p style="color:var(--muted);font-size:14.5px">Use após cada venda concluída.</p>
+    <span class="tag tag-orange" id="check4-count">0/9 itens</span>
+  </div>
+  <div id="checklist4">
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Mensagem de agradecimento enviada em até 24h</span></div>
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Presente simbólico enviado ou entregue</span></div>
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Contato feito após a entrega das chaves</span></div>
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Lembrete de 3 meses criado no CRM</span></div>
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Lembrete de 6 meses criado no CRM</span></div>
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Lembrete de 12 meses criado no CRM</span></div>
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Depoimento ou avaliação solicitados</span></div>
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Cliente adicionado ao grupo/lista VIP</span></div>
+    <div class="check-item" onclick="toggle(this,'c4')"><div class="check-box">✓</div><span class="check-label">Datas especiais registradas (aniversário, data da mudança)</span></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo(2)">← Anterior</button>
+    <button class="btn-next" onclick="goTo(4)">Próximo Módulo →</button>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 5 ════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-4">
+  <span class="mod-tag">Módulo 5</span>
+  <h2 class="mod-h2">Construindo Sua Rotina de <span>Alta Performance</span></h2>
+  <p class="mod-subtitle">O mindset + o seu plano dos próximos 30 dias.</p>
+
+  <div class="section-title"><h3>5.1 — O Mindset que Sustenta Tudo</h3></div>
+  <div class="info-card"><div class="info-emoji">🧭</div><div class="info-body"><div class="info-title">Foco em metas claras</div><div class="info-text">Não basta 'querer vender mais'. Defina: quantas vendas, qual ticket médio, em qual prazo. Meta vaga gera resultado vago.</div></div></div>
+  <div class="info-card"><div class="info-emoji">📈</div><div class="info-body"><div class="info-title">Orientação por indicadores</div><div class="info-text">Acompanhe semanalmente: agenciamentos, leads contactados, visitas agendadas, propostas feitas, fechamentos. Quem mede, melhora.</div></div></div>
+  <div class="info-card"><div class="info-emoji">🤝</div><div class="info-body"><div class="info-title">Inteligência emocional</div><div class="info-text">Lida com rejeições sem se desmontar. Cada 'não' é um passo mais perto do 'sim'. Respira, registra o aprendizado e segue.</div><div class="info-fonte">GOLEMAN, D. Inteligência Emocional. Objetiva, 2011.</div></div></div>
+  <div class="info-card"><div class="info-emoji">🔄</div><div class="info-body"><div class="info-title">Mentalidade de melhoria contínua</div><div class="info-text">O mercado muda. O cliente muda. O corretor de alta performance se atualiza constantemente — treinamentos, livros, podcasts, benchmarks.</div></div></div>
+
+  <div class="section-title"><h3>5.2 — Meu Plano: Próximos 30 Dias</h3></div>
+  <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px">Use estes pontos como guia para montar seu plano. Anote no seu caderno, agenda ou CRM.</p>
+  <div class="plano-grid">
+    <div class="plano-card"><span class="plano-emoji">⏰</span><span class="plano-text">Horário fixo para começar a trabalhar todos os dias</span></div>
+    <div class="plano-card"><span class="plano-emoji">🏠</span><span class="plano-text">Meta de agenciamentos por semana</span></div>
+    <div class="plano-card"><span class="plano-emoji">📞</span><span class="plano-text">Meta de prospecções por semana</span></div>
+    <div class="plano-card"><span class="plano-emoji">👁️</span><span class="plano-text">Meta de visitas por semana</span></div>
+    <div class="plano-card"><span class="plano-emoji">🌅</span><span class="plano-text">Uma rotina matinal que vou adotar</span></div>
+    <div class="plano-card"><span class="plano-emoji">❌</span><span class="plano-text">Um hábito que vou eliminar</span></div>
+    <div class="plano-card"><span class="plano-emoji">⭐</span><span class="plano-text">Um cliente que vou fazer pós-venda esta semana</span></div>
+    <div class="plano-card"><span class="plano-emoji">🎯</span><span class="plano-text">Minha meta de vendas para os próximos 30 dias</span></div>
+  </div>
+
+  <div class="section-title"><h3>5.3 — Os 10 Mandamentos do Corretor CR</h3></div>
+  <div class="mandamentos-grid">
+    <div class="mandamento"><span class="mandamento-num">1</span><span class="mandamento-text">Conheça profundamente o produto e seu mercado local.</span></div>
+    <div class="mandamento"><span class="mandamento-num">2</span><span class="mandamento-text">Venda é técnica: Intuição ajuda, mas método converte. Siga o Método CR — Use Mark-IA!</span></div>
+    <div class="mandamento"><span class="mandamento-num">3</span><span class="mandamento-text">Trate o lead como ouro: Responda em até 5 minutos. Cada minuto a mais é uma chance para a concorrência.</span></div>
+    <div class="mandamento"><span class="mandamento-num">4</span><span class="mandamento-text">Use o CRM de forma disciplinada: Quem não registra, não escala.</span></div>
+    <div class="mandamento"><span class="mandamento-num">5</span><span class="mandamento-text">Foque no relacionamento: a venda é consequência da conexão real.</span></div>
+    <div class="mandamento"><span class="mandamento-num">6</span><span class="mandamento-text">Crie rotina de gestão com metas: sem meta, não existe direção.</span></div>
+    <div class="mandamento"><span class="mandamento-num">7</span><span class="mandamento-text">Agenciar bem é se relacionar bem: cada proprietário é um futuro cliente ou promotor.</span></div>
+    <div class="mandamento"><span class="mandamento-num">8</span><span class="mandamento-text">Pós-venda não é opcional: é onde a indicação nasce.</span></div>
+    <div class="mandamento"><span class="mandamento-num">9</span><span class="mandamento-text">Construa autoridade digital e presença no seu local: as pessoas compram de quem confiam.</span></div>
+    <div class="mandamento"><span class="mandamento-num">10</span><span class="mandamento-text">Nunca pare de aprender: o mercado muda. Você precisa acompanhar a mudança.</span></div>
+  </div>
+
+  <div class="frase-final">
+    <p>"Sem meta, não há foco.<br>Sem gestão, não há resultado."</p>
+    <span>— Método CR de Alta Performance · Imóveis Crédito Real</span>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-prev" onclick="goTo(3)">← Anterior</button>
+    <div class="btn-done">🎉 Treinamento Concluído!</div>
+  </div>
+</div>
+
+</div><!-- content-inner -->
+</div><!-- content -->
+
+<script>
+  let currentScreen = 'intro';
+  let visited = new Set();
+
+  const checkCounts = { c2: 0, c4: 0 };
+  const checkTotals = { c2: 10, c4: 9 };
+
+  function startTraining() {
+    document.getElementById('screen-intro').classList.remove('active');
+    document.getElementById('tabs-bar').style.display = 'flex';
+    goTo(0);
+  }
+
+  function goTo(idx) {
+    // hide all
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-intro').classList.remove('active');
+
+    // show target
+    document.getElementById('screen-' + idx).classList.add('active');
+    document.getElementById('screen-' + idx).scrollIntoView ? window.scrollTo(0, 0) : null;
+
+    // update tabs
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+      btn.classList.remove('active', 'done');
+      if (i === idx) btn.classList.add('active');
+      else if (visited.has(i)) {
+        btn.classList.add('done');
+        const mark = btn.querySelector('.tab-done-mark');
+        if (!mark) btn.innerHTML += ' <span class="tab-done-mark">✓</span>';
+      }
+    });
+
+    visited.add(idx);
+    updateProgress();
+    currentScreen = idx;
+    window.scrollTo(0, 0);
+  }
+
+  function updateProgress() {
+    const pct = Math.round((visited.size / 5) * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = pct + '% concluído';
+  }
+
+  function toggle(el, group) {
+    el.classList.toggle('checked');
+    const done = document.querySelectorAll('#checklist' + (group === 'c2' ? '2' : '4') + ' .check-item.checked').length;
+    const total = checkTotals[group];
+    const countEl = document.getElementById('check' + (group === 'c2' ? '2' : '4') + '-count');
+    if (countEl) {
+      countEl.textContent = done + '/' + total + (group === 'c2' ? ' concluídos' : ' itens');
+      countEl.className = 'tag ' + (done === total ? 'tag-green' : 'tag-orange');
+    }
+  }
+</script>
+</body>
+</html>

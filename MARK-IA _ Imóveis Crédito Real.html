@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<!-- saved from url=(0160)file:///C:/Users/LUCIO~1.AZE/AppData/Local/Temp/%7B467A05E4-737A-470F-827E-32C0283CB3C1%7D/%7BC9DB09BA-6571-4801-BDC8-CB1912E39FF8%7D/mark-ia-painel%20(14).html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARK-IA | Imóveis Crédito Real</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --orange: #FF6B00;
+    --orange-dark: #E05A00;
+    --orange-light: #FF8C35;
+    --orange-glow: rgba(255,107,0,0.18);
+    --black: #111111;
+    --dark: #1A1A1A;
+    --dark2: #222222;
+    --dark3: #2D2D2D;
+    --gray: #888;
+    --gray-light: #ccc;
+    --white: #FFFFFF;
+    --text: #F0F0F0;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  .header {
+    background: linear-gradient(135deg, var(--dark) 0%, #1c1c1c 100%);
+    border-bottom: 3px solid var(--orange);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 24px rgba(255,107,0,0.15);
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-svg {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+
+  .header-title span { color: var(--orange); }
+
+  .header-badge {
+    background: var(--orange);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── PROGRESS BAR ─────────────────────────────────── */
+  .progress-container {
+    background: var(--dark2);
+    padding: 14px 32px;
+    border-bottom: 1px solid #333;
+  }
+
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .progress-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .progress-pct {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--orange);
+  }
+
+  .progress-bar-bg {
+    background: #333;
+    border-radius: 8px;
+    height: 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--orange-dark), var(--orange-light));
+    border-radius: 8px;
+    transition: width 0.6s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0 10px var(--orange-glow);
+  }
+
+  .progress-steps {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .step-dot {
+    width: 28px;
+    height: 6px;
+    border-radius: 4px;
+    background: #333;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .step-dot.active { background: var(--orange); }
+  .step-dot.done { background: var(--orange-dark); opacity: 0.7; }
+
+  /* ── NAV TABS ─────────────────────────────────────── */
+  .nav-tabs {
+    background: var(--dark2);
+    padding: 0 32px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    border-bottom: 1px solid #333;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray);
+    padding: 14px 18px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.25s;
+    white-space: nowrap;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-tab:hover { color: var(--orange-light); }
+  .nav-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .nav-tab .tab-num {
+    background: var(--dark3);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+  }
+  .nav-tab.active .tab-num { background: var(--orange); color: var(--white); }
+
+  /* ── MAIN CONTENT ─────────────────────────────────── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 36px 24px 80px;
+  }
+
+  .page { display: none; animation: fadeIn 0.4s ease; }
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HERO INTRO ───────────────────────────────────── */
+  .hero {
+    text-align: center;
+    padding: 20px 0 36px;
+  }
+
+  .hero-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .hero-logo svg { width: 80px; height: 80px; }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--orange-glow);
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 2.2rem;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .hero h1 span { color: var(--orange); }
+
+  .hero-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray);
+    margin-bottom: 28px;
+  }
+
+  .hero-text {
+    background: var(--dark2);
+    border-left: 4px solid var(--orange);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    text-align: left;
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: var(--text);
+    margin: 0 auto 32px;
+    max-width: 760px;
+  }
+
+  /* ── SECTION CARDS ────────────────────────────────── */
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .num-badge {
+    background: var(--orange);
+    color: var(--white);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .section-desc {
+    font-size: 0.88rem;
+    color: var(--gray);
+    margin-bottom: 24px;
+    padding-left: 42px;
+  }
+
+  /* ── ACCORDION ────────────────────────────────────── */
+  .accordion {
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: box-shadow 0.3s;
+  }
+  .accordion:hover { box-shadow: 0 0 0 1px var(--orange-dark); }
+
+  .accordion-head {
+    background: var(--dark2);
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+  }
+  .accordion-head:hover { background: var(--dark3); }
+  .accordion-head.open { background: #2a1a00; border-bottom: 1px solid #444; }
+
+  .accordion-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--dark3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--orange);
+    flex-shrink: 0;
+    transition: transform 0.3s, background 0.3s;
+  }
+  .accordion-head.open .accordion-icon {
+    transform: rotate(45deg);
+    background: var(--orange);
+    color: var(--white);
+  }
+
+  .accordion-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .accordion-body {
+    display: none;
+    background: #1e1e1e;
+    padding: 0;
+  }
+  .accordion-body.open { display: block; }
+
+  /* ── HACK CARDS ───────────────────────────────────── */
+  .hack-card {
+    border-bottom: 1px solid #2a2a2a;
+    padding: 18px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: background 0.2s;
+  }
+  .hack-card:last-child { border-bottom: none; }
+  .hack-card:hover { background: #252525; }
+
+  .hack-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--orange-glow);
+    border: 1px solid var(--orange);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .hack-content { flex: 1; }
+
+  .hack-prompt {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.65;
+    font-style: italic;
+  }
+  .hack-prompt strong {
+    color: var(--orange);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* ── CTA BUTTON ───────────────────────────────────── */
+  .cta-wrap {
+    text-align: center;
+    padding: 20px 22px;
+    background: linear-gradient(135deg, #1e1200 0%, #1a1a1a 100%);
+    border-top: 1px solid #333;
+  }
+
+  .cta-label {
+    font-size: 0.78rem;
+    color: var(--gray);
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange-light));
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 0.88rem;
+    letter-spacing: 0.5px;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(255,107,0,0.35);
+    text-transform: uppercase;
+  }
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(255,107,0,0.5);
+  }
+
+  .cta-btn svg { width: 18px; height: 18px; }
+
+  /* ── CONCLUSION ───────────────────────────────────── */
+  .conclusion-hero {
+    text-align: center;
+    padding: 12px 0 28px;
+  }
+  .conclusion-hero .big-icon {
+    font-size: 4rem;
+    margin-bottom: 12px;
+  }
+  .conclusion-hero h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1.7rem;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .conclusion-hero h2 span { color: var(--orange); }
+
+  .conclusion-block {
+    background: var(--dark2);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    font-size: 0.96rem;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .challenge-box {
+    background: linear-gradient(135deg, #2a1000, #1a1a1a);
+    border: 2px solid var(--orange);
+    border-radius: 14px;
+    padding: 26px 30px;
+    margin-bottom: 24px;
+  }
+  .challenge-box h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--orange);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .challenge-box p {
+    font-size: 0.94rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  /* ── FINAL PAGE ───────────────────────────────────── */
+  .final-page {
+    text-align: center;
+    padding: 20px 0 40px;
+  }
+
+  .cert-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 0 auto 32px;
+  }
+
+  .cert-ring {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange-dark), var(--orange-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(255,107,0,0.4);
+    animation: pulse 2.5s infinite;
+    font-size: 3.5rem;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 30px rgba(255,107,0,0.35); }
+    50%       { box-shadow: 0 0 60px rgba(255,107,0,0.65); }
+  }
+
+  .final-page h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1.9rem;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .final-page h2 span { color: var(--orange); }
+  .final-page p {
+    font-size: 0.96rem;
+    color: var(--gray-light);
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+
+  .univ-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid var(--orange);
+    color: var(--orange);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 0.88rem;
+    padding: 13px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.25s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .univ-btn:hover {
+    background: var(--orange);
+    color: var(--white);
+    box-shadow: 0 4px 20px rgba(255,107,0,0.4);
+  }
+
+  .checklist {
+    background: var(--dark2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 28px auto 0;
+    max-width: 500px;
+    text-align: left;
+    border: 1px solid #333;
+  }
+  .checklist h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin-bottom: 14px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 0.88rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.2s;
+    user-select: none;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { color: var(--orange-light); }
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .check-item.checked .check-box {
+    background: var(--orange);
+    color: var(--white);
+  }
+
+  /* ── NAV FOOTER ───────────────────────────────────── */
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid #2a2a2a;
+    gap: 12px;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 11px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .nav-btn-prev {
+    background: var(--dark3);
+    color: var(--gray-light);
+  }
+  .nav-btn-prev:hover { background: #3a3a3a; color: var(--white); }
+
+  .nav-btn-next {
+    background: var(--orange);
+    color: var(--white);
+    box-shadow: 0 4px 16px rgba(255,107,0,0.3);
+  }
+  .nav-btn-next:hover {
+    background: var(--orange-light);
+    box-shadow: 0 6px 20px rgba(255,107,0,0.45);
+    transform: translateX(2px);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  /* ── LOGO INLINE ──────────────────────────────────── */
+  .inline-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .inline-logo svg { width: 36px; height: 36px; }
+  .inline-logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    color: var(--white);
+  }
+  .inline-logo-text span { color: var(--orange); }
+
+  /* ── RESPONSIVE ───────────────────────────────────── */
+  @media (max-width: 600px) {
+    .header { padding: 12px 16px; }
+    .header-title { font-size: 1rem; }
+    .progress-container { padding: 12px 16px; }
+    .nav-tabs { padding: 0 16px; }
+    .main { padding: 24px 16px 64px; }
+    .hero h1 { font-size: 1.6rem; }
+    .conclusion-block { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="logo-area">
+    <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="16" fill="#FF6B00"></rect>
+      <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+    </svg>
+    <div>
+      <div class="header-title">Imóveis <span>Crédito Real</span></div>
+    </div>
+  </div>
+  <span class="header-badge">Módulo Mark-IA</span>
+</header>
+
+<!-- ── PROGRESS BAR ── -->
+<div class="progress-container">
+  <div class="progress-top">
+    <span class="progress-label">Progresso do Módulo</span>
+    <span class="progress-pct" id="pctLabel">13%</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill" style="width: 13%;"></div>
+  </div>
+  <div class="progress-steps" id="stepDots"><div class="step-dot active" title="Introdução"></div><div class="step-dot" title="Funil"></div><div class="step-dot" title="Captação"></div><div class="step-dot" title="Alta Performance"></div><div class="step-dot" title="Negociação"></div><div class="step-dot" title="Conclusão I"></div><div class="step-dot" title="Conclusão II"></div><div class="step-dot" title="Certificado"></div></div>
+</div>
+
+<!-- ── NAV TABS ── -->
+<nav class="nav-tabs" id="navTabs">
+  <button class="nav-tab active" data-page="0"><span class="tab-num">1</span> Introdução</button>
+  <button class="nav-tab" data-page="1"><span class="tab-num">2</span> Funil de Vendas</button>
+  <button class="nav-tab" data-page="2"><span class="tab-num">3</span> Captação</button>
+  <button class="nav-tab" data-page="3"><span class="tab-num">4</span> Alta Performance</button>
+  <button class="nav-tab" data-page="4"><span class="tab-num">5</span> Negociação</button>
+  <button class="nav-tab" data-page="5"><span class="tab-num">6</span> Conclusão I</button>
+  <button class="nav-tab" data-page="6"><span class="tab-num">7</span> Conclusão II</button>
+  <button class="nav-tab" data-page="7"><span class="tab-num">8</span> Certificado</button>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- PAGE 0: INTRODUÇÃO -->
+  <section class="page active" id="page-0">
+    <div class="hero">
+      <div class="hero-logo">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="20" fill="#FF6B00"></rect>
+          <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+        </svg>
+      </div>
+      <div class="hero-tag">🤖 Ferramenta de IA para Corretores</div>
+      <h1><span>MARK-IA</span></h1>
+      <p class="hero-sub">O braço direito e esquerdo do Corretor</p>
+    </div>
+
+    <div class="hero-text">
+      <p>Mark é o seu <strong style="color:var(--orange)">consultor imobiliário digital</strong>. Treinado com as melhores práticas atuais do mercado imobiliário, ele apoia você em toda a jornada de vendas, da captação ao fechamento, ajudando a pensar melhor e decidir com mais clareza antes de agir.</p>
+      <br>
+      <p>O MARK orienta na prospecção, qualificação de leads, negociação, organização da rotina e estratégias de marketing, evitando erros comuns que custam tempo, energia e vendas. Mais do que responder dúvidas, ele sugere caminhos, provoca reflexões e atua como um mentor confiável, disponível sempre que você precisar.</p>
+      <br>
+      <p>Usar o MARK é ganhar agilidade nas decisões, mais foco na execução e resultados consistentes no dia a dia comercial.</p>
+    </div>
+
+    <div style="background:var(--dark2);border-radius:14px;padding:24px 28px;border:1px solid #333;margin-bottom:8px;">
+      <div style="font-family:&#39;Montserrat&#39;,sans-serif;font-weight:800;font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:16px;">📋 O que você vai aprender neste módulo</div>
+      <div style="display:grid;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;font-size:0.9rem;"><span style="color:var(--orange);font-weight:700;">01</span> Taxa de conversão em cada etapa do funil</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:0.9rem;"><span style="color:var(--orange);font-weight:700;">02</span> Agenciamentos e qualificação de carteira</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:0.9rem;"><span style="color:var(--orange);font-weight:700;">03</span> Mentalidade de alta performance</div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:0.9rem;"><span style="color:var(--orange);font-weight:700;">04</span> Negociação e fechamento de negócios</div>
+      </div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn nav-btn-prev" disabled="">← Anterior</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo(1)">Próximo: Funil de Vendas →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 1: TAXA DE CONVERSÃO -->
+  <section class="page" id="page-1">
+    <div class="inline-logo" style="margin-bottom:20px;">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+        <rect width="100" height="100" rx="14" fill="#FF6B00"></rect>
+        <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+      </svg>
+      <div class="inline-logo-text">Imóveis <span>Crédito Real</span></div>
+    </div>
+
+    <div class="section-title">
+      <span class="num-badge">1</span>
+      Taxa de Conversão em Cada Etapa do Funil
+    </div>
+    <div class="section-desc">Hacks para usar no MARK-IA e aumentar suas conversões em cada fase da jornada de vendas</div>
+
+    <div class="accordion" id="acc1-1">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc1-1&#39;)">
+        <span class="accordion-label">📈 Prospecção → Agendamento de Visitas</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, quais práticas recomendadas posso aplicar para aumentar minha taxa de conversão da prospecção para agendamento de visitas, considerando abordagem, qualificação do lead e comunicação inicial?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc1-2">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc1-2&#39;)">
+        <span class="accordion-label">🏠 Visitas Realizadas → Propostas Apresentadas</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, como posso melhorar minha taxa de conversão entre visitas realizadas e propostas apresentadas?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc1-3">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc1-3&#39;)">
+        <span class="accordion-label">📊 Métricas e Gargalos do Funil</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, quais métricas e indicadores devo acompanhar para identificar gargalos específicos no meu funil de vendas e quais ações práticas posso tomar para corrigir esses pontos?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc1-4">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc1-4&#39;)">
+        <span class="accordion-label">⚠️ Comportamentos que Reduzem Conversão</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, quais comportamentos e erros mais comuns dos corretores que acaba reduzindo a taxa de conversão em cada etapa do funil e como posso evitá-los na minha rotina comercial?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn nav-btn-prev" onclick="goTo(0)">← Introdução</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo(2)">Próximo: Captação →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 2: CAPTAÇÃO -->
+  <section class="page" id="page-2">
+    <div class="inline-logo" style="margin-bottom:20px;">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+        <rect width="100" height="100" rx="14" fill="#FF6B00"></rect>
+        <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+      </svg>
+      <div class="inline-logo-text">Imóveis <span>Crédito Real</span></div>
+    </div>
+
+    <div class="section-title">
+      <span class="num-badge">2</span>
+      Agenciamentos e Qualificação de Carteira
+    </div>
+    <div class="section-desc">Hacks para usar no MARK-IA e qualificar sua carteira com inteligência e estratégia</div>
+
+    <div class="accordion" id="acc2-1">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc2-1&#39;)">
+        <span class="accordion-label">🗂️ Qualificação da Carteira de Imóveis</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, me ajude a qualificar minha carteira de imóveis. Que critérios devo usar para identificar quais imóveis merecem mais investimento de tempo e divulgação, sem comprometer meu foco em vendas?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc2-2">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc2-2&#39;)">
+        <span class="accordion-label">📍 Preparação para Captar em um Bairro Específico</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, me ajude a me preparar para captar um imóvel no bairro [X]. Quais dados de mercado, perfil de comprador e argumentos técnicos eu devo levar para gerar autoridade no primeiro contato com o proprietário?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc2-3">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc2-3&#39;)">
+        <span class="accordion-label">🛡️ Objeções de Proprietários na Captação</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, quais são as objeções mais comuns que proprietários levantam durante a captação de imóveis e como posso respondê-las de forma profissional?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc2-4">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc2-4&#39;)">
+        <span class="accordion-label">🔍 Roteiro de Visita Técnica ao Imóvel</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, me ajude a montar um roteiro de visita técnica para um imóvel [tipo do imóvel]. Que pontos devo observar para identificar fatores que impactam valor, liquidez e possíveis ajustes?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn nav-btn-prev" onclick="goTo(1)">← Funil de Vendas</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo(3)">Próximo: Alta Performance →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 3: ALTA PERFORMANCE -->
+  <section class="page" id="page-3">
+    <div class="inline-logo" style="margin-bottom:20px;">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+        <rect width="100" height="100" rx="14" fill="#FF6B00"></rect>
+        <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+      </svg>
+      <div class="inline-logo-text">Imóveis <span>Crédito Real</span></div>
+    </div>
+
+    <div class="section-title">
+      <span class="num-badge">3</span>
+      Mentalidade de Alta Performance
+    </div>
+    <div class="section-desc">Hacks para usar no MARK-IA e desenvolver a mentalidade e hábitos dos melhores corretores</div>
+
+    <div class="accordion" id="acc3-1">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc3-1&#39;)">
+        <span class="accordion-label">🗓️ Rotina de Trabalho Disciplinada e Produtiva</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, como posso estruturar uma rotina de trabalho mais disciplinada e produtiva como corretor, equilibrando prospecção, atendimento, visitas e gestão da carteira?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc3-2">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc3-2&#39;)">
+        <span class="accordion-label">📅 Agenda Personalizada com Blocos de Tempo</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>Mark</strong>, monte uma agenda personalizada com modelos de bloqueio, blocos de tempo e checklist diário para eu implementar.</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc3-3">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc3-3&#39;)">
+        <span class="accordion-label">💪 Constância no Método em Períodos Difíceis</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, como posso manter constância na execução do método de vendas, mesmo em períodos de pouco resultado ou alta pressão por fechamento?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc3-4">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc3-4&#39;)">
+        <span class="accordion-label">🧠 Resiliência frente a Recusas e Objeções</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, que estratégias mentais e comportamentais posso aplicar para lidar melhor com recusas, objeções e negociações perdidas, mantendo resiliência e performance comercial?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc3-5">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc3-5&#39;)">
+        <span class="accordion-label">🏆 Comportamentos de Corretores de Alta Performance</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, quais comportamentos diferenciam corretores de alta performance no mercado imobiliário e como posso desenvolver esses hábitos de forma prática no meu dia a dia?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn nav-btn-prev" onclick="goTo(2)">← Captação</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo(4)">Próximo: Negociação →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 4: NEGOCIAÇÃO -->
+  <section class="page" id="page-4">
+    <div class="inline-logo" style="margin-bottom:20px;">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+        <rect width="100" height="100" rx="14" fill="#FF6B00"></rect>
+        <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+      </svg>
+      <div class="inline-logo-text">Imóveis <span>Crédito Real</span></div>
+    </div>
+
+    <div class="section-title">
+      <span class="num-badge">4</span>
+      Negociação e Fechamento de Negócios
+    </div>
+    <div class="section-desc">Hacks para usar no MARK-IA e fechar mais negócios com segurança e estratégia</div>
+
+    <div class="accordion" id="acc4-1">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc4-1&#39;)">
+        <span class="accordion-label">🤝 Negociação Estratégica sem Descontos Precipitados</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, como posso conduzir uma negociação imobiliária de forma mais estratégica, sem conceder descontos precipitados e mantendo valor percebido pelo cliente?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc4-2">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc4-2&#39;)">
+        <span class="accordion-label">❌ Erros Comuns na Fase Final da Negociação</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, quais são os erros mais comuns que corretores cometem na fase final da negociação e como posso evitá-los para não perder o negócio?</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="acc4-3">
+      <div class="accordion-head" onclick="toggleAcc(&#39;acc4-3&#39;)">
+        <span class="accordion-label">🎯 Argumento de Fechamento para Cliente Indeciso</span>
+        <span class="accordion-icon">+</span>
+      </div>
+      <div class="accordion-body">
+        <div class="hack-card">
+          <div class="hack-icon">🤖</div>
+          <div class="hack-content">
+            <div class="hack-prompt"><strong>MARK</strong>, me ajude a estruturar um argumento de fechamento para um cliente que demonstrou interesse, mas ainda está indeciso.</div>
+          </div>
+        </div>
+        <div class="cta-wrap">
+          <div class="cta-label">Clique no link abaixo e teste a pergunta agora mesmo!</div>
+          <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            Acessar o MARK-IA
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn nav-btn-prev" onclick="goTo(3)">← Alta Performance</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo(5)">Próximo: Conclusão →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 5: CONCLUSÃO I -->
+  <section class="page" id="page-5">
+    <div class="inline-logo" style="margin-bottom:20px;">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+        <rect width="100" height="100" rx="14" fill="#FF6B00"></rect>
+        <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+      </svg>
+      <div class="inline-logo-text">Imóveis <span>Crédito Real</span></div>
+    </div>
+
+    <div class="conclusion-hero">
+      <div class="big-icon">🚀</div>
+      <h2>Agora é <span>com você!</span></h2>
+    </div>
+
+    <div class="conclusion-block">
+      <p>O MARK está pronto para ser o seu parceiro estratégico — mas só funciona se você usar. Não adianta ter acesso à melhor inteligência artificial do mercado imobiliário se ela fica parada na tela inicial.</p>
+      <br>
+      <p>A diferença entre corretores medianos e de alta performance está na <strong style="color:var(--orange)">execução</strong>. Os melhores profissionais do mercado não esperam inspiração: eles criam sistemas, aplicam métodos, testam estratégias e ajustam rotas com base em dados reais. E é exatamente isso que o MARK foi feito para te ajudar a fazer.</p>
+      <br>
+      <p>Cada pergunta que você faz ao MARK é um passo para melhorar sua conversão, qualificar melhor sua carteira, negociar com mais segurança e construir uma rotina que gera resultados consistentes. Ele não substitui seu trabalho — <strong style="color:var(--orange)">ele potencializa sua execução.</strong></p>
+    </div>
+
+    <div class="challenge-box">
+      <h3>⚡ O Desafio é Simples</h3>
+      <p>Escolha uma das perguntas que você viu neste treinamento e <strong>teste hoje mesmo</strong>. Depois, observe o impacto na sua clareza, na sua abordagem, na sua decisão. E repita.</p>
+    </div>
+
+    <div style="text-align:center;margin-bottom:8px;">
+      <div class="cta-label" style="color:var(--gray);font-family:&#39;Montserrat&#39;,sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Clique no link abaixo e teste as perguntas agora mesmo!</div>
+      <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        Acessar o MARK-IA
+      </a>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn nav-btn-prev" onclick="goTo(4)">← Negociação</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo(6)">Próximo: Conclusão II →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 6: CONCLUSÃO II -->
+  <section class="page" id="page-6">
+    <div class="inline-logo" style="margin-bottom:20px;">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;">
+        <rect width="100" height="100" rx="14" fill="#FF6B00"></rect>
+        <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+      </svg>
+      <div class="inline-logo-text">Imóveis <span>Crédito Real</span></div>
+    </div>
+
+    <div class="conclusion-block" style="margin-bottom:20px;">
+      <p>Transforme o MARK em parte da sua rotina comercial — antes de prospectar, antes de visitar, antes de negociar, antes de desistir.</p>
+      <br>
+      <p>Corretores que dominam ferramentas como o MARK não trabalham mais, <strong style="color:var(--orange)">trabalham melhor</strong>. Eles vendem mais, com menos esforço desperdiçado, porque tomam decisões mais inteligentes.</p>
+    </div>
+
+    <div class="challenge-box" style="margin-bottom:24px;">
+      <h3>💬 A Pergunta que Fica</h3>
+      <p>Você vai continuar confiando só no improviso ou vai usar a inteligência que já está ao seu alcance?<br><br>
+      <strong style="color:var(--orange-light)">O MARK está disponível. A alta performance depende de você.</strong></p>
+    </div>
+
+    <div style="text-align:center;margin-bottom:8px;">
+      <div class="cta-label" style="color:var(--gray);font-family:&#39;Montserrat&#39;,sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Clique no link abaixo e teste as perguntas agora mesmo!</div>
+      <a href="https://mark.creditoreal.com.br/" target="_blank" class="cta-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        Acessar o MARK-IA
+      </a>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn nav-btn-prev" onclick="goTo(5)">← Conclusão I</button>
+      <button class="nav-btn nav-btn-next" onclick="goTo(7)">Próximo: Certificado →</button>
+    </div>
+  </section>
+
+  <!-- PAGE 7: CERTIFICADO / FINAL -->
+  <section class="page" id="page-7">
+    <div class="final-page">
+      <div class="inline-logo" style="margin-bottom:28px;">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;">
+          <rect width="100" height="100" rx="14" fill="#FF6B00"></rect>
+          <text x="50" y="62" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="900" font-size="36" fill="#fff">CR</text>
+        </svg>
+        <div class="inline-logo-text" style="font-size:1.1rem;">Imóveis <span>Crédito Real</span></div>
+      </div>
+
+      <div class="cert-badge">
+        <div class="cert-ring">🏆</div>
+      </div>
+      <br>
+
+      <h2>Parabéns! Você <span>concluiu</span> este módulo!</h2>
+      <p style="max-width:500px;margin:0 auto 28px;">
+        Você concluiu o módulo do <strong>Manual de Boas Práticas para Corretores</strong> sobre o MARK-IA.<br>Volte para a Universidade Corporativa para seguir com as próximas etapas.
+      </p>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;">
+        <div style="background:var(--dark2);border:1px solid #333;border-radius:12px;padding:16px 22px;text-align:center;min-width:120px;">
+          <div style="font-size:1.8rem;margin-bottom:6px;">🎓</div>
+          <div style="font-family:&#39;Montserrat&#39;,sans-serif;font-size:0.7rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;">Módulo</div>
+          <div style="font-size:0.82rem;color:var(--gray-light);margin-top:2px;">Concluído</div>
+        </div>
+        <div style="background:var(--dark2);border:1px solid #333;border-radius:12px;padding:16px 22px;text-align:center;min-width:120px;">
+          <div style="font-size:1.8rem;margin-bottom:6px;">⚡</div>
+          <div style="font-family:&#39;Montserrat&#39;,sans-serif;font-size:0.7rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;">MARK-IA</div>
+          <div style="font-size:0.82rem;color:var(--gray-light);margin-top:2px;">Ativado</div>
+        </div>
+        <div style="background:var(--dark2);border:1px solid #333;border-radius:12px;padding:16px 22px;text-align:center;min-width:120px;">
+          <div style="font-size:1.8rem;margin-bottom:6px;">🚀</div>
+          <div style="font-family:&#39;Montserrat&#39;,sans-serif;font-size:0.7rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;">Alta</div>
+          <div style="font-size:0.82rem;color:var(--gray-light);margin-top:2px;">Performance</div>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <h4>✅ Checklist de Conclusão do Módulo</h4>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Entendi o que é o MARK-IA e sua função</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Aprendi hacks para aumentar conversão no funil</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Aprendi hacks para captação e qualificação de carteira</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Aprendi hacks de mentalidade de alta performance</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Aprendi hacks para negociação e fechamento</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <span>Testei pelo menos uma pergunta no MARK-IA</span>
+        </div>
+      </div>
+
+      <br><br>
+      <p style="font-family:&#39;Montserrat&#39;,sans-serif;font-weight:800;font-size:1.05rem;color:var(--orange);letter-spacing:0.3px;">🎓 Volte para a Universidade Corporativa para seguir com as próximas etapas.</p>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn nav-btn-prev" onclick="goTo(6)">← Conclusão II</button>
+      <button class="nav-btn nav-btn-next" disabled="">Módulo Concluído ✓</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const TOTAL = 8;
+  let current = 0;
+  let visited = new Set([0]);
+
+  // Build step dots
+  const dotsEl = document.getElementById('stepDots');
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i === 0 ? ' active' : '');
+    d.title = ['Introdução','Funil','Captação','Alta Performance','Negociação','Conclusão I','Conclusão II','Certificado'][i];
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function updateProgress() {
+    const pct = Math.round((visited.size / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('pctLabel').textContent = pct + '%';
+    const dots = dotsEl.querySelectorAll('.step-dot');
+    dots.forEach((d, i) => {
+      d.className = 'step-dot';
+      if (i === current) d.classList.add('active');
+      else if (visited.has(i)) d.classList.add('done');
+    });
+  }
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= TOTAL) return;
+    document.getElementById('page-' + current).classList.remove('active');
+    document.querySelectorAll('.nav-tab').forEach((t, i) => {
+      t.classList.toggle('active', i === idx);
+    });
+    current = idx;
+    visited.add(idx);
+    document.getElementById('page-' + current).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Nav tabs
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.addEventListener('click', () => goTo(parseInt(t.dataset.page)));
+  });
+
+  function toggleAcc(id) {
+    const el = document.getElementById(id);
+    const head = el.querySelector('.accordion-head');
+    const body = el.querySelector('.accordion-body');
+    head.classList.toggle('open');
+    body.classList.toggle('open');
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+  }
+
+  updateProgress();
+</script>
+
+
+</body></html>

@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UC CR - Contorno de Objeções</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cr-orange: #FF6600;
+            --cr-orange-light: #FF8533;
+            --cr-black: #1A1A1A;
+            --cr-white: #FFFFFF;
+            --cr-gray-light: #F5F5F5;
+            --cr-gray-medium: #E0E0E0;
+            --cr-gray-dark: #666666;
+            --cr-green: #28A745;
+            --cr-red: #FF6B6B;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--cr-gray-light);
+            color: var(--cr-black);
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            background: var(--cr-black);
+            color: var(--cr-white);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .header-title {
+            border-left: 3px solid var(--cr-orange);
+            padding-left: 1.5rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.3rem;
+            color: var(--cr-orange);
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        .header-title p {
+            font-size: 0.9rem;
+            color: var(--cr-white);
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .progress-badge {
+            background: var(--cr-orange);
+            color: var(--cr-white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* LAYOUT PRINCIPAL */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--cr-white);
+            border-right: 1px solid var(--cr-gray-medium);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 70px;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--cr-gray-dark);
+            padding: 0 1.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            color: var(--cr-black);
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: var(--cr-gray-light);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(255,102,0,0.1) 0%, transparent 100%);
+            border-left-color: var(--cr-orange);
+            color: var(--cr-orange);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-check {
+            color: var(--cr-green);
+            margin-left: auto;
+        }
+
+        /* CONTENT AREA */
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* CONTENT BOXES */
+        .content-box {
+            background: var(--cr-white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--cr-orange);
+        }
+
+        .content-box h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--cr-orange);
+            font-size: 1.5rem;
+        }
+
+        .content-box h3 {
+            color: var(--cr-black);
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.2rem;
+        }
+
+        .content-box p {
+            line-height: 1.8;
+            color: var(--cr-gray-dark);
+            margin-bottom: 1rem;
+        }
+
+        .content-box ul {
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        .content-box li {
+            line-height: 1.8;
+            color: var(--cr-gray-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* HIGHLIGHT BOXES */
+        .highlight-box {
+            background: linear-gradient(135deg, #FFF5EC 0%, #FFE9D6 100%);
+            border-left: 4px solid var(--cr-orange);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box strong {
+            color: var(--cr-orange);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .script-box {
+            background: var(--cr-gray-light);
+            border: 1px solid var(--cr-gray-medium);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .script-label {
+            color: var(--cr-orange);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        /* EXPERT TIP */
+        .expert-tip {
+            background: #F0FFF4;
+            border-left: 4px solid var(--cr-green);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .expert-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .expert-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cr-orange), var(--cr-orange-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .expert-name {
+            font-weight: 700;
+            color: var(--cr-black);
+        }
+
+        .expert-title {
+            font-size: 0.85rem;
+            color: var(--cr-gray-dark);
+        }
+
+        /* QUIZ CARDS */
+        .quiz-container {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-card {
+            background: var(--cr-white);
+            border: 2px solid var(--cr-gray-medium);
+            border-radius: 12px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .quiz-card:hover {
+            border-color: var(--cr-orange);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(255,102,0,0.2);
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--cr-black);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            background: var(--cr-gray-light);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: var(--cr-white);
+            border-color: var(--cr-orange);
+        }
+
+        .quiz-option.correct {
+            background: #D4EDDA;
+            border-color: var(--cr-green);
+            color: var(--cr-green);
+            font-weight: 600;
+        }
+
+        .quiz-option.wrong {
+            background: #F8D7DA;
+            border-color: var(--cr-red);
+            opacity: 0.5;
+        }
+
+        .quiz-feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #D4EDDA;
+            border-left: 4px solid var(--cr-green);
+            color: #155724;
+        }
+
+        .quiz-feedback.wrong {
+            background: #F8D7DA;
+            border-left: 4px solid var(--cr-red);
+            color: #721C24;
+        }
+
+        /* BUTTONS */
+        .btn-primary {
+            background: var(--cr-orange);
+            color: var(--cr-white);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--cr-orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,102,0,0.3);
+        }
+
+        .btn-secondary {
+            background: var(--cr-white);
+            color: var(--cr-orange);
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--cr-orange);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--cr-orange);
+            color: var(--cr-white);
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            background: var(--cr-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-text {
+            font-weight: 600;
+            color: var(--cr-black);
+        }
+
+        .progress-percent {
+            color: var(--cr-orange);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: var(--cr-gray-light);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--cr-orange) 0%, var(--cr-orange-light) 100%);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--cr-gray-medium);
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            .header-left {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                width: 160px;
+            }
+
+            .header-title {
+                border-left: none;
+                border-top: 3px solid var(--cr-orange);
+                padding-left: 0;
+                padding-top: 1rem;
+            }
+
+            .header-title h1 {
+                font-size: 1.1rem;
+            }
+
+            .header-title p {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--cr-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--cr-orange);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cr-orange);
+        }
+
+        .stat-label {
+            color: var(--cr-gray-dark);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* COMPARISON BOX */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-item {
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .comparison-wrong {
+            background: #FFF5F5;
+            border: 2px solid var(--cr-red);
+        }
+
+        .comparison-right {
+            background: #F0FFF4;
+            border: 2px solid var(--cr-green);
+        }
+
+        .comparison-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-title {
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-left">
+            <!-- LOGO CRÉDITO REAL -->
+            <!-- INSTRUÇÕES: Substitua o src abaixo pelo caminho correto da sua logo -->
+            <!-- Exemplo: src="logo-cr.png" ou src="assets/logo-cr.png" -->
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='60' viewBox='0 0 200 60'%3E%3Crect width='200' height='60' fill='%23FF6600'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='18' font-weight='bold' fill='white'%3ECRÉDITO REAL%3C/text%3E%3C/svg%3E" 
+                 alt="Imóveis Crédito Real" 
+                 class="logo"
+                 id="logo-cr"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'60\' viewBox=\'0 0 200 60\'%3E%3Crect width=\'200\' height=\'60\' fill=\'%23FF6600\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial, sans-serif\' font-size=\'18\' font-weight=\'bold\' fill=\'white\'%3ECRÉDITO REAL%3C/text%3E%3C/svg%3E';">
+            <div class="header-title">
+                <h1>🎯 Contorno de Objeções</h1>
+                <p>Universidade Corporativa</p>
+            </div>
+        </div>
+        <div class="progress-badge">
+            <span id="overall-progress">40%</span> Concluído
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+        
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">📚 Módulos</div>
+                <div class="nav-item active" onclick="showSection('intro')">
+                    <span class="nav-icon">🎯</span>
+                    <span>Introdução</span>
+                </div>
+                <div class="nav-item" onclick="showSection('mindset')">
+                    <span class="nav-icon">🧠</span>
+                    <span>Mentalidade</span>
+                </div>
+                <div class="nav-item" onclick="showSection('captacao')">
+                    <span class="nav-icon">🏠</span>
+                    <span>Captação</span>
+                </div>
+                <div class="nav-item" onclick="showSection('comprador')">
+                    <span class="nav-icon">👥</span>
+                    <span>Jornada Comprador</span>
+                </div>
+                <div class="nav-item" onclick="showSection('preco')">
+                    <span class="nav-icon">💰</span>
+                    <span>Ajuste de Preço</span>
+                </div>
+                <div class="nav-item" onclick="showSection('gatilhos')">
+                    <span class="nav-icon">🧲</span>
+                    <span>Gatilhos Mentais</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">✅ Avaliação</div>
+                <div class="nav-item" onclick="showSection('quiz')">
+                    <span class="nav-icon">📝</span>
+                    <span>Quiz Final</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+            
+            <!-- INTRO SECTION -->
+            <div id="intro" class="content-section active">
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span class="progress-text">Seu Progresso no Treinamento</span>
+                        <span class="progress-percent">40%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;"></div>
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <h2>🎯 Bem-vindo ao Treinamento</h2>
+                    <p>Este é o seu guia completo para dominar o <strong>Contorno de Objeções</strong> no mercado imobiliário. Você aprenderá técnicas validadas pelo Método CR para transformar objeções em oportunidades de fechamento.</p>
+
+                    <h3>📊 O que você vai aprender:</h3>
+                    <ul>
+                        <li><strong>Mentalidade de Alta Performance:</strong> Como se posicionar como consultor, não apenas vendedor</li>
+                        <li><strong>Captação Estratégica:</strong> Scripts validados para convencer proprietários</li>
+                        <li><strong>Jornada do Comprador:</strong> Técnicas para cada etapa do funil</li>
+                        <li><strong>Ajuste de Preço:</strong> Métodos profissionais de avaliação e negociação</li>
+                        <li><strong>Gatilhos Mentais:</strong> Neurociência aplicada às vendas</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <strong>💡 Dado Importante:</strong>
+                        <p>Corretores que dominam contorno de objeções aumentam sua taxa de conversão em até 60% e reduzem o tempo de venda em 30%.</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Módulos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">20+</div>
+                        <div class="stat-label">Scripts CR</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">10</div>
+                        <div class="stat-label">Gatilhos Mentais</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MINDSET SECTION -->
+            <div id="mindset" class="content-section">
+                <div class="content-box">
+                    <h2>🧠 Mentalidade de Alta Performance</h2>
+                    
+                    <h3>Consultor vs. Vendedor</h3>
+                    <p>O cliente de hoje não busca alguém que apenas mostre imóveis. Ele quer alguém que <strong>entenda suas necessidades</strong>, oriente com clareza e ofereça segurança na tomada de decisão.</p>
+
+                    <div class="comparison-grid">
+                        <div class="comparison-item comparison-wrong">
+                            <div class="comparison-icon">❌</div>
+                            <div class="comparison-title">Vendedor Comum</div>
+                            <ul>
+                                <li>Foca no produto</li>
+                                <li>Pressiona para fechar</li>
+                                <li>Desiste fácil</li>
+                                <li>Sem método</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-item comparison-right">
+                            <div class="comparison-icon">✅</div>
+                            <div class="comparison-title">Consultor CR</div>
+                            <ul>
+                                <li>Foca na solução</li>
+                                <li>Guia o cliente</li>
+                                <li>Persistência estratégica</li>
+                                <li>Método estruturado</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>5 Pilares da Inteligência Emocional</h3>
+                    <ul>
+                        <li><strong>Autoconsciência:</strong> Reconhecer suas próprias emoções</li>
+                        <li><strong>Autocontrole:</strong> Gerenciar emoções sob pressão</li>
+                        <li><strong>Motivação:</strong> Manter foco nos objetivos</li>
+                        <li><strong>Empatia:</strong> Compreender emoções dos outros</li>
+                        <li><strong>Habilidades Sociais:</strong> Construir relações produtivas</li>
+                    </ul>
+
+                    <div class="expert-tip">
+                        <div class="expert-header">
+                            <div class="expert-avatar">V</div>
+                            <div>
+                                <div class="expert-name">Vicente - Embaixador CR</div>
+                                <div class="expert-title">15 anos de experiência</div>
+                            </div>
+                        </div>
+                        <p><em>"A diferença entre um corretor comum e um de alta performance está em como ele lida com o 'não'. Aprendi a transformar cada objeção em uma oportunidade de mostrar meu valor."</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAPTAÇÃO SECTION -->
+            <div id="captacao" class="content-section">
+                <div class="content-box">
+                    <h2>🏠 Captação de Imóveis</h2>
+                    
+                    <h3>7 Objeções Mais Comuns dos Proprietários</h3>
+
+                    <div class="script-box">
+                        <span class="script-label">Objeção 1: "Já estou anunciando sozinho"</span>
+                        <p><strong>Resposta CR:</strong> "Isso é ótimo, pois quanto mais visibilidade, melhor! No entanto, com nossa estrutura, conseguimos atingir um público qualificado e evitar perda de tempo com curiosos. Além disso, garantimos um processo seguro e sem dores de cabeça com documentação e negociações. Podemos conversar sobre isso?"</p>
+                    </div>
+
+                    <div class="script-box">
+                        <span class="script-label">Objeção 2: "Não quero pagar comissão"</span>
+                        <p><strong>Resposta CR:</strong> "Entendo perfeitamente sua preocupação! Mas nossa comissão é um investimento, pois garantimos que seu imóvel seja visto por um número muito maior de compradores e conseguimos negociações mais rápidas e seguras. Além disso, evitamos dores de cabeça com documentação e burocracia."</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>⏱️ Tempo é Crucial:</strong>
+                        <p>Responder em até 5 minutos aumenta a conversão em <strong>21x</strong> comparado a respostas depois de 30 minutos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPRADOR SECTION -->
+            <div id="comprador" class="content-section">
+                <div class="content-box">
+                    <h2>👥 Jornada do Comprador</h2>
+                    
+                    <h3>3 Fases Críticas</h3>
+                    <p>A jornada do comprador tem momentos-chave onde objeções aparecem. Dominar cada fase é essencial:</p>
+
+                    <h3>Fase 1: Primeiro Contato</h3>
+                    <div class="script-box">
+                        <span class="script-label">Objeção: "Só quero saber o preço"</span>
+                        <p><strong>Resposta:</strong> "Claro! O valor é R$ [X]. Para garantir que esse imóvel realmente atende suas necessidades, posso te fazer duas perguntinhas rápidas? Primeiro, o que é mais importante para você: localização, tamanho ou acabamento?"</p>
+                    </div>
+
+                    <h3>Fase 2: Durante a Visita</h3>
+                    <div class="script-box">
+                        <span class="script-label">Objeção: "Está muito caro"</span>
+                        <p><strong>Resposta:</strong> "Entendo sua percepção. Com base em quê você está fazendo essa comparação? Deixa eu te mostrar uma análise de imóveis similares na região..." [Método Comparativo de Dados de Mercado]</p>
+                    </div>
+
+                    <h3>Fase 3: Proposta</h3>
+                    <div class="script-box">
+                        <span class="script-label">Objeção: "Preciso pensar"</span>
+                        <p><strong>Resposta:</strong> "Claro, é uma decisão importante! Para te ajudar a pensar melhor, o que especificamente você precisa avaliar? É questão de valores, documentação ou tem alguma dúvida sobre o imóvel?"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PREÇO SECTION -->
+            <div id="preco" class="content-section">
+                <div class="content-box">
+                    <h2>💰 Ajuste de Preço</h2>
+                    
+                    <h3>Por que imóveis fora do preço não vendem?</h3>
+                    <ul>
+                        <li>Compradores fazem comparações constantes</li>
+                        <li>Imóveis mal precificados geram menos visitas</li>
+                        <li>Se fica muito tempo à venda, gera desconfiança</li>
+                    </ul>
+
+                    <h3>Método Comparativo de Dados de Mercado</h3>
+                    <div class="highlight-box">
+                        <strong>📐 Fórmula:</strong>
+                        <p>Valor de Venda ÷ Área Total (m²) = Preço por m²</p>
+                        <p>Depois: Preço médio/m² × Metragem do imóvel = Valor de mercado</p>
+                    </div>
+
+                    <div class="script-box">
+                        <span class="script-label">Script para Ajuste de Preço</span>
+                        <p>"Olá, [Nome do Proprietário]. Fizemos uma nova análise do mercado e observamos que imóveis semelhantes ao seu foram vendidos recentemente por um valor um pouco inferior. Para aumentar suas chances de venda dentro do prazo esperado, recomendamos um ajuste de preço para [valor sugerido]. Isso tornará seu imóvel mais competitivo. Podemos alinhar essa estratégia juntos?"</p>
+                    </div>
+
+                    <div class="expert-tip">
+                        <div class="expert-header">
+                            <div class="expert-avatar">A</div>
+                            <div>
+                                <div class="expert-name">Altemar - Embaixador CR</div>
+                                <div class="expert-title">Especialista em negociação</div>
+                            </div>
+                        </div>
+                        <p><em>"Números não mentem. Quando você apresenta dados concretos ao proprietário, a conversa sobre preço deixa de ser emocional e vira estratégica."</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GATILHOS SECTION -->
+            <div id="gatilhos" class="content-section">
+                <div class="content-box">
+                    <h2>🧲 Gatilhos Mentais</h2>
+                    
+                    <div class="highlight-box">
+                        <strong>🧠 Base Científica:</strong>
+                        <p>90% das decisões de compra são emocionais (sistema límbico), e apenas 10% racionais. Gatilhos mentais ativam essas respostas emocionais automáticas.</p>
+                    </div>
+
+                    <h3>Top 5 Gatilhos para Contorno de Objeções</h3>
+
+                    <h3>1. Gatilho da Escassez</h3>
+                    <p><strong>Significado:</strong> Pessoas valorizam mais o que é raro ou limitado.</p>
+                    <p><strong>Aplicação:</strong> "Esta é a última unidade disponível neste andar!"</p>
+
+                    <h3>2. Gatilho da Urgência</h3>
+                    <p><strong>Significado:</strong> Necessidade de agir rápido para não perder oportunidade.</p>
+                    <p><strong>Aplicação:</strong> "Condições especiais apenas até sexta-feira!"</p>
+
+                    <h3>3. Gatilho da Autoridade</h3>
+                    <p><strong>Significado:</strong> Pessoas confiam em especialistas.</p>
+                    <p><strong>Aplicação:</strong> "Trabalho há 15 anos no mercado e já ajudei 500+ famílias."</p>
+
+                    <h3>4. Gatilho da Prova Social</h3>
+                    <p><strong>Significado:</strong> Decisões baseadas na experiência de outros.</p>
+                    <p><strong>Aplicação:</strong> "80% das unidades já foram vendidas!"</p>
+
+                    <h3>5. Gatilho da Reciprocidade</h3>
+                    <p><strong>Significado:</strong> Quando recebemos algo, sentimos vontade de retribuir.</p>
+                    <p><strong>Aplicação:</strong> "Vou te enviar um guia completo sobre financiamento, sem compromisso."</p>
+
+                    <div class="comparison-grid">
+                        <div class="comparison-item comparison-wrong">
+                            <div class="comparison-icon">❌</div>
+                            <div class="comparison-title">Uso Errado</div>
+                            <p>"Este é o melhor condomínio da cidade!" (sem evidências)</p>
+                        </div>
+                        <div class="comparison-item comparison-right">
+                            <div class="comparison-icon">✅</div>
+                            <div class="comparison-title">Uso Correto</div>
+                            <p>"Este condomínio recebeu o prêmio Qualidade Urbana 2024 da SECOVI"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUIZ SECTION -->
+            <div id="quiz" class="content-section">
+                <div class="content-box">
+                    <h2>📝 Quiz Final - Teste Seus Conhecimentos</h2>
+                    <p>Responda às questões abaixo para validar seu aprendizado:</p>
+                </div>
+
+                <div class="quiz-container">
+                    <!-- Questão 1 -->
+                    <div class="quiz-card">
+                        <div class="quiz-question">1. Qual o prazo ideal para responder um lead?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 1)">a) Até 30 minutos</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, true, 1)">b) Até 5 minutos</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 1)">c) Até 1 hora</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 1)">d) No mesmo dia</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback-1"></div>
+                    </div>
+
+                    <!-- Questão 2 -->
+                    <div class="quiz-card">
+                        <div class="quiz-question">2. Qual a principal diferença entre consultor e vendedor?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 2)">a) O consultor pressiona mais</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, true, 2)">b) O consultor foca na solução, não no produto</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 2)">c) O vendedor tem mais técnica</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 2)">d) Não há diferença</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback-2"></div>
+                    </div>
+
+                    <!-- Questão 3 -->
+                    <div class="quiz-card">
+                        <div class="quiz-question">3. O que é o Método Comparativo de Dados de Mercado?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 3)">a) Método de captação de imóveis</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, true, 3)">b) Método de avaliação baseado em imóveis similares vendidos</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 3)">c) Método de fechamento de vendas</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 3)">d) Método de marketing</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback-3"></div>
+                    </div>
+
+                    <!-- Questão 4 -->
+                    <div class="quiz-card">
+                        <div class="quiz-question">4. Qual porcentagem das decisões de compra são emocionais?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 4)">a) 50%</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 4)">b) 70%</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, true, 4)">c) 90%</div>
+                            <div class="quiz-option" onclick="checkAnswer(this, false, 4)">d) 100%</div>
+                        </div>
+                        <div class="quiz-feedback" id="feedback-4"></div>
+                    </div>
+                </div>
+
+                <div class="content-box" style="text-align: center; margin-top: 2rem;">
+                    <h3>🏆 Resultado Final</h3>
+                    <p id="quiz-result" style="font-size: 1.5rem; font-weight: 700; color: var(--cr-orange); margin: 1rem 0;">Responda todas as questões</p>
+                    <button class="btn-primary" onclick="resetQuiz()" style="margin-top: 1rem;">🔄 Refazer Quiz</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // NAVIGATION
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // QUIZ FUNCTIONALITY
+        let correctAnswers = 0;
+        let totalQuestions = 4;
+        let answeredQuestions = new Set();
+
+        function checkAnswer(element, isCorrect, questionNumber) {
+            const parent = element.closest('.quiz-card');
+            const options = parent.querySelectorAll('.quiz-option');
+            const feedback = parent.querySelector('.quiz-feedback');
+            
+            // Se já respondeu esta questão, não fazer nada
+            if (answeredQuestions.has(questionNumber)) {
+                return;
+            }
+            
+            // Marcar como respondida
+            answeredQuestions.add(questionNumber);
+            
+            // Desabilitar todas as opções
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            // Marcar resposta
+            if (isCorrect) {
+                element.classList.add('correct');
+                correctAnswers++;
+                feedback.className = 'quiz-feedback show correct';
+                feedback.innerHTML = '✅ <strong>Correto!</strong> Excelente conhecimento.';
+            } else {
+                element.classList.add('wrong');
+                feedback.className = 'quiz-feedback show wrong';
+                feedback.innerHTML = '❌ <strong>Incorreto.</strong> Revise o conteúdo do módulo.';
+                
+                // Mostrar resposta correta
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            
+            // Atualizar resultado se todas respondidas
+            if (answeredQuestions.size === totalQuestions) {
+                updateFinalResult();
+            }
+        }
+
+        function updateFinalResult() {
+            const percentage = (correctAnswers / totalQuestions) * 100;
+            const resultElement = document.getElementById('quiz-result');
+            
+            let message = '';
+            let emoji = '';
+            
+            if (percentage === 100) {
+                emoji = '🏆';
+                message = 'Perfeito! 100% de acertos!';
+            } else if (percentage >= 75) {
+                emoji = '🎉';
+                message = `Muito bom! ${correctAnswers}/${totalQuestions} corretas (${percentage}%)`;
+            } else if (percentage >= 50) {
+                emoji = '👍';
+                message = `Bom! ${correctAnswers}/${totalQuestions} corretas (${percentage}%)`;
+            } else {
+                emoji = '📚';
+                message = `${correctAnswers}/${totalQuestions} corretas (${percentage}%). Revise o conteúdo.`;
+            }
+            
+            resultElement.innerHTML = `${emoji} ${message}`;
+        }
+
+        function resetQuiz() {
+            // Reset variables
+            correctAnswers = 0;
+            answeredQuestions.clear();
+            
+            // Reset all quiz cards
+            document.querySelectorAll('.quiz-card').forEach(card => {
+                const options = card.querySelectorAll('.quiz-option');
+                const feedback = card.querySelector('.quiz-feedback');
+                
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'wrong');
+                    opt.style.pointerEvents = 'auto';
+                });
+                
+                feedback.classList.remove('show', 'correct', 'wrong');
+                feedback.innerHTML = '';
+            });
+            
+            // Reset result
+            document.getElementById('quiz-result').innerHTML = 'Responda todas as questões';
+            
+            // Scroll to top of quiz
+            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // PROGRESS ANIMATION
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.progress-fill').style.width = '40%';
+            }, 500);
+        });
+
+        // ============================================
+        // INSTRUÇÕES PARA TROCAR A LOGO
+        // ============================================
+        // OPÇÃO 1: Se você tem a logo em um arquivo
+        // Coloque sua logo (logo-cr.png) na mesma pasta do HTML
+        // E descomente a linha abaixo:
+        // document.getElementById('logo-cr').src = 'logo-cr.png';
+
+        // OPÇÃO 2: Se a logo está em outra pasta
+        // document.getElementById('logo-cr').src = 'assets/logo-cr.png';
+
+        // OPÇÃO 3: Se a logo está online
+        // document.getElementById('logo-cr').src = 'https://seusite.com/logo.png';
+        
+        // ============================================
+    </script>
+</body>
+</html>
